@@ -71,6 +71,9 @@ fun ChatScreen(
         onLogout = viewModel::logout,
         onCreateAppointment = viewModel::createAppointment,
         onRequestKbUpdate = viewModel::requestKnowledgeBaseUpdate,
+        onShowChat = viewModel::showChat,
+        onShowAdmin = viewModel::showAdmin,
+        onRefreshKbJobs = viewModel::loadKbUpdateJobs,
         modifier = modifier,
     )
 }
@@ -87,10 +90,12 @@ fun ChatScreenContent(
     onLogout: () -> Unit,
     onCreateAppointment: (String, String, String, String, String) -> Unit,
     onRequestKbUpdate: (String) -> Unit,
+    onShowChat: () -> Unit,
+    onShowAdmin: () -> Unit,
+    onRefreshKbJobs: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var showAppointmentForm by remember { mutableStateOf(false) }
-    var showAdminForm by remember { mutableStateOf(false) }
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -127,9 +132,15 @@ fun ChatScreenContent(
                         if (session.role == "admin") {
                             TextButton(
                                 enabled = !state.isLoading,
-                                onClick = { showAdminForm = !showAdminForm },
+                                onClick = {
+                                    if (state.isAdminMode) {
+                                        onShowChat()
+                                    } else {
+                                        onShowAdmin()
+                                    }
+                                },
                             ) {
-                                Text("KB")
+                                Text(if (state.isAdminMode) "Chat" else "Quản trị")
                             }
                         }
                         TextButton(
@@ -163,15 +174,22 @@ fun ChatScreenContent(
                     .padding(innerPadding)
                     .fillMaxSize(),
             )
+        } else if (state.isAdminMode && state.session.role == "admin") {
+            AdminDashboard(
+                state = state,
+                onRequestKbUpdate = onRequestKbUpdate,
+                onRefreshKbJobs = onRefreshKbJobs,
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .fillMaxSize(),
+            )
         } else {
             ChatConversation(
                 state = state,
                 showAppointmentForm = showAppointmentForm,
-                showAdminForm = showAdminForm,
                 onSendQuestion = onSendQuestion,
                 onRetry = onRetry,
                 onCreateAppointment = onCreateAppointment,
-                onRequestKbUpdate = onRequestKbUpdate,
                 modifier = Modifier
                     .padding(innerPadding)
                     .fillMaxSize(),
@@ -184,11 +202,9 @@ fun ChatScreenContent(
 private fun ChatConversation(
     state: ChatUiState,
     showAppointmentForm: Boolean,
-    showAdminForm: Boolean,
     onSendQuestion: (String) -> Unit,
     onRetry: () -> Unit,
     onCreateAppointment: (String, String, String, String, String) -> Unit,
-    onRequestKbUpdate: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val listState = rememberLazyListState()
@@ -224,12 +240,6 @@ private fun ChatConversation(
         if (showAppointmentForm) {
             item {
                 AppointmentPanel(onCreateAppointment = onCreateAppointment)
-            }
-        }
-
-        if (showAdminForm && state.session?.role == "admin") {
-            item {
-                AdminKbPanel(onRequestKbUpdate = onRequestKbUpdate)
             }
         }
 
@@ -370,24 +380,103 @@ private fun AppointmentPanel(
 }
 
 @Composable
-private fun AdminKbPanel(
+private fun AdminDashboard(
+    state: ChatUiState,
     onRequestKbUpdate: (String) -> Unit,
+    onRefreshKbJobs: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var note by remember { mutableStateOf("Cập nhật knowledge base từ nguồn hiện có") }
-    Surface(
-        modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(8.dp),
-        color = MaterialTheme.colorScheme.surfaceVariant,
+    LazyColumn(
+        modifier = modifier.background(MaterialTheme.colorScheme.background),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        Column(
-            modifier = Modifier.padding(12.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            Text("Admin cập nhật KB", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-            OutlinedTextField(note, { note = it }, modifier = Modifier.fillMaxWidth(), label = { Text("Ghi chú") })
-            Button(onClick = { onRequestKbUpdate(note) }, shape = RoundedCornerShape(8.dp)) {
-                Text("Tạo yêu cầu cập nhật")
+        item {
+            Text(
+                text = "Quản trị hệ thống",
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.SemiBold,
+            )
+            Text(
+                text = "Tài khoản admin: ${state.session?.email.orEmpty()}",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+
+        if (state.operationMessage != null) {
+            item {
+                Surface(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(8.dp),
+                    color = MaterialTheme.colorScheme.secondaryContainer,
+                ) {
+                    Text(
+                        text = state.operationMessage,
+                        modifier = Modifier.padding(12.dp),
+                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    )
+                }
+            }
+        }
+
+        item {
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(8.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant,
+            ) {
+                Column(
+                    modifier = Modifier.padding(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    Text("Cập nhật knowledge base", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                    Text(
+                        text = "Tạo yêu cầu cập nhật để backend ghi nhận job. Bước chạy pipeline thực tế vẫn thực hiện ở máy local.",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    OutlinedTextField(note, { note = it }, modifier = Modifier.fillMaxWidth(), label = { Text("Ghi chú") })
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Button(onClick = { onRequestKbUpdate(note) }, shape = RoundedCornerShape(8.dp)) {
+                            Text("Tạo job")
+                        }
+                        TextButton(onClick = onRefreshKbJobs) {
+                            Text("Tải lại")
+                        }
+                    }
+                }
+            }
+        }
+
+        item {
+            Text("Job cập nhật KB", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+        }
+
+        if (state.kbJobs.isEmpty()) {
+            item {
+                Text(
+                    text = "Chưa có job cập nhật KB.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+
+        items(state.kbJobs, key = { it.id }) { job ->
+            Card(
+                shape = RoundedCornerShape(8.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+            ) {
+                Column(
+                    modifier = Modifier.padding(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                ) {
+                    Text("Job #${job.id} - ${job.status}", fontWeight = FontWeight.SemiBold)
+                    Text(job.note, style = MaterialTheme.typography.bodyMedium)
+                    Text(job.createdAt, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
             }
         }
     }
@@ -674,6 +763,9 @@ private fun ChatScreenPreview() {
                 onLogout = {},
                 onCreateAppointment = { _, _, _, _, _ -> },
                 onRequestKbUpdate = {},
+                onShowChat = {},
+                onShowAdmin = {},
+                onRefreshKbJobs = {},
             )
         }
     }

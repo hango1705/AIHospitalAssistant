@@ -131,6 +131,21 @@ class DefaultChatRepository(
             OperationResult.Failure("Không kết nối được backend.")
         }
     }
+
+    override suspend fun loadKbUpdateJobs(): Result<List<KbUpdateJob>> {
+        val auth = session?.authorizationHeader() ?: return Result.success(emptyList())
+        return try {
+            val response = api.kbUpdateJobs(auth)
+            if (!response.isSuccessful) {
+                return Result.failure(IllegalStateException("Backend trả về lỗi ${response.code()}."))
+            }
+            Result.success(response.body()?.jobs.orEmpty().map { it.toDomain() })
+        } catch (exc: IOException) {
+            Result.failure(exc)
+        } catch (exc: RuntimeException) {
+            Result.failure(exc)
+        }
+    }
 }
 
 private fun ChatSourceDto.toDomain(): ChatSource {
@@ -153,5 +168,14 @@ private fun ServerChatMessageDto.toDomain(): ChatMessage {
         role = if (role == "user") ChatRole.User else ChatRole.Assistant,
         text = text,
         sources = sources.map { it.toDomain() },
+    )
+}
+
+private fun KbUpdateJobResponseDto.toDomain(): KbUpdateJob {
+    return KbUpdateJob(
+        id = id,
+        note = note,
+        status = status,
+        createdAt = createdAt,
     )
 }

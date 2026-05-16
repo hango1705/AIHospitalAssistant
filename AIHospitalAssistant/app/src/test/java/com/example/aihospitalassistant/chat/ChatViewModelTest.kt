@@ -211,6 +211,21 @@ class ChatViewModelTest {
 
         assertEquals("Đã gửi yêu cầu đặt lịch khám.", viewModel.uiState.value.operationMessage)
     }
+
+    @Test
+    fun adminModeLoadsKbJobs() = runTest(dispatcher) {
+        val repository = FakeChatRepository(
+            session = UserSession("token", "admin@example.com", "Admin", "admin"),
+            kbJobs = listOf(KbUpdateJob(1, "Refresh KB", "queued", "2026-05-17T00:00:00Z")),
+        )
+        val viewModel = ChatViewModel(repository)
+
+        viewModel.showAdmin()
+        advanceUntilIdle()
+
+        assertTrue(viewModel.uiState.value.isAdminMode)
+        assertEquals("Refresh KB", viewModel.uiState.value.kbJobs.single().note)
+    }
 }
 
 private data class ChatRequestCall(
@@ -220,6 +235,7 @@ private data class ChatRequestCall(
 
 private class FakeChatRepository(
     private var session: UserSession? = null,
+    private val kbJobs: List<KbUpdateJob> = emptyList(),
     private val results: ArrayDeque<ChatResult> = ArrayDeque(
         listOf(
             ChatResult.Success(
@@ -277,6 +293,8 @@ private class FakeChatRepository(
     ): OperationResult = OperationResult.Success
 
     override suspend fun requestKbUpdate(note: String): OperationResult = OperationResult.Success
+
+    override suspend fun loadKbUpdateJobs(): Result<List<KbUpdateJob>> = Result.success(kbJobs)
 }
 
 private class FakeChatHistoryStore(

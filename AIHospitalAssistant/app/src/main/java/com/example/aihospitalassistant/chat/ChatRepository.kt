@@ -10,4 +10,5 @@ interface ChatRepository {
     suspend fun clearServerHistory(): OperationResult
     suspend fun createAppointment(patientName: String, phone: String, department: String, appointmentDate: String, reason: String): OperationResult
     suspend fun requestKbUpdate(note: String): OperationResult
+    suspend fun loadKbUpdateJobs(): Result<List<KbUpdateJob>>
 }

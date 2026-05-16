@@ -27,6 +27,13 @@ data class UserSession(
     val role: String,
 )
 
+data class KbUpdateJob(
+    val id: Int,
+    val note: String,
+    val status: String,
+    val createdAt: String,
+)
+
 sealed interface ChatResult {
     data class Success(val answer: ChatAnswer) : ChatResult
     data class Failure(val message: String) : ChatResult
@@ -53,6 +60,8 @@ data class ChatUiState(
     val isAuthLoading: Boolean = false,
     val authErrorMessage: String? = null,
     val operationMessage: String? = null,
+    val isAdminMode: Boolean = false,
+    val kbJobs: List<KbUpdateJob> = emptyList(),
     val suggestions: List<String> = defaultSuggestions,
 )
 

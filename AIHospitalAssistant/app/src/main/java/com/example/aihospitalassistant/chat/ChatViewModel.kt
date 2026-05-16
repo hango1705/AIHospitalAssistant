@@ -49,15 +49,19 @@ class ChatViewModel(
         viewModelScope.launch {
             when (val result = call()) {
                 OperationResult.Success -> {
+                    val session = repository.currentSession()
                     _uiState.update {
                         it.copy(
-                            session = repository.currentSession(),
+                            session = session,
                             isAuthLoading = false,
                             authErrorMessage = null,
                             operationMessage = "Đăng nhập thành công.",
                         )
                     }
                     loadServerHistory()
+                    if (session?.role == "admin") {
+                        loadKbUpdateJobs()
+                    }
                 }
 
                 is OperationResult.Failure -> {
@@ -84,8 +88,22 @@ class ChatViewModel(
                 errorMessage = null,
                 authErrorMessage = null,
                 operationMessage = null,
+                isAdminMode = false,
+                kbJobs = emptyList(),
             )
         }
+    }
+
+    fun showChat() {
+        _uiState.update { it.copy(isAdminMode = false) }
+    }
+
+    fun showAdmin() {
+        if (_uiState.value.session?.role != "admin") {
+            return
+        }
+        _uiState.update { it.copy(isAdminMode = true) }
+        loadKbUpdateJobs()
     }
 
     private fun loadServerHistory() {
@@ -229,6 +247,24 @@ class ChatViewModel(
                     },
                 )
             }
+            if (result == OperationResult.Success) {
+                loadKbUpdateJobs()
+            }
+        }
+    }
+
+    fun loadKbUpdateJobs() {
+        if (_uiState.value.session?.role != "admin") {
+            return
+        }
+        viewModelScope.launch {
+            repository.loadKbUpdateJobs()
+                .onSuccess { jobs ->
+                    _uiState.update { it.copy(kbJobs = jobs) }
+                }
+                .onFailure { error ->
+                    _uiState.update { it.copy(operationMessage = error.message ?: "Không tải được danh sách job KB.") }
+                }
         }
     }
 

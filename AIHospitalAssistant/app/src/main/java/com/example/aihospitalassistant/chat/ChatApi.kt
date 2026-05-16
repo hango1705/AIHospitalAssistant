@@ -41,6 +41,9 @@ interface ChatApi {
         @Header("Authorization") authorization: String,
         @Body request: KbUpdateRequestDto,
     ): Response<KbUpdateJobResponseDto>
+
+    @GET("admin/kb/jobs")
+    suspend fun kbUpdateJobs(@Header("Authorization") authorization: String): Response<KbUpdateJobListResponseDto>
 }
 
 data class HealthResponseDto(
@@ -120,7 +123,14 @@ data class KbUpdateRequestDto(
 
 data class KbUpdateJobResponseDto(
     val id: Int,
+    val note: String = "",
     val status: String,
+    @SerializedName("created_at")
+    val createdAt: String = "",
+)
+
+data class KbUpdateJobListResponseDto(
+    val jobs: List<KbUpdateJobResponseDto> = emptyList(),
 )
 
 data class ChatSourceDto(
