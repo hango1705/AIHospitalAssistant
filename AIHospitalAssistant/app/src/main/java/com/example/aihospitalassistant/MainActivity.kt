@@ -4,13 +4,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.remember
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.aihospitalassistant.chat.ChatScreen
+import com.example.aihospitalassistant.chat.ChatServiceFactory
+import com.example.aihospitalassistant.chat.ChatViewModel
+import com.example.aihospitalassistant.chat.DefaultChatRepository
 import com.example.aihospitalassistant.ui.theme.AIHospitalAssistantTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,29 +18,16 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AIHospitalAssistantTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Quang",
-                        modifier = Modifier.padding(innerPadding)
+                val repository = remember {
+                    DefaultChatRepository(
+                        ChatServiceFactory.create(BuildConfig.CHAT_API_BASE_URL),
                     )
                 }
+                val viewModel: ChatViewModel = viewModel(
+                    factory = ChatViewModel.Factory(repository),
+                )
+                ChatScreen(viewModel = viewModel)
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AIHospitalAssistantTheme {
-        Greeting("Android")
     }
 }

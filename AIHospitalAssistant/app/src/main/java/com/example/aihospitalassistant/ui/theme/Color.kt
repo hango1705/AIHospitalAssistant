@@ -2,10 +2,10 @@ package com.example.aihospitalassistant.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+val ClinicalBlue80 = Color(0xFF9BD0FF)
+val SageGreen80 = Color(0xFFA7DCC1)
+val WarmAmber80 = Color(0xFFEBC06D)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+val ClinicalBlue40 = Color(0xFF1B658F)
+val SageGreen40 = Color(0xFF3F765D)
+val WarmAmber40 = Color(0xFF8A6414)
