@@ -124,6 +124,70 @@ class ChatViewModelTest {
             repository.calls,
         )
     }
+
+    @Test
+    fun initializesWithStoredChatHistory() = runTest(dispatcher) {
+        val historyStore = FakeChatHistoryStore(
+            initialMessages = listOf(
+                ChatMessage(id = 7, role = ChatRole.User, text = "Khoa Nhi"),
+                ChatMessage(id = 8, role = ChatRole.Assistant, text = "Thông tin Khoa Nhi.", sources = emptyList()),
+            ),
+        )
+
+        val viewModel = ChatViewModel(FakeChatRepository(), historyStore)
+
+        assertEquals(2, viewModel.uiState.value.messages.size)
+        assertEquals("Khoa Nhi", viewModel.uiState.value.messages.first().text)
+    }
+
+    @Test
+    fun successfulConversationIsPersistedToHistoryStore() = runTest(dispatcher) {
+        val historyStore = FakeChatHistoryStore()
+        val viewModel = ChatViewModel(FakeChatRepository(), historyStore)
+
+        viewModel.sendQuestion("Bệnh viện A Thái Nguyên ở đâu?")
+        advanceUntilIdle()
+
+        assertEquals(2, historyStore.savedMessages.size)
+        assertEquals("Bệnh viện A Thái Nguyên ở đâu?", historyStore.savedMessages[0].text)
+        assertEquals("Bệnh viện A nằm trên đường Quang Trung [Nguon 1].", historyStore.savedMessages[1].text)
+    }
+
+    @Test
+    fun restoredTopicIsUsedForFollowUpQuestion() = runTest(dispatcher) {
+        val historyStore = FakeChatHistoryStore(
+            initialMessages = listOf(
+                ChatMessage(id = 1, role = ChatRole.User, text = "Khoa Nhi có bao nhiêu giường bệnh?"),
+                ChatMessage(id = 2, role = ChatRole.Assistant, text = "Khoa Nhi có trên 156 giường."),
+            ),
+        )
+        val repository = FakeChatRepository()
+        val viewModel = ChatViewModel(repository, historyStore)
+
+        viewModel.sendQuestion("Trưởng khoa là ai?")
+        advanceUntilIdle()
+
+        assertEquals(
+            ChatRequestCall("Trưởng khoa là ai?", "Khoa Nhi"),
+            repository.calls.single(),
+        )
+    }
+
+    @Test
+    fun clearHistoryRemovesMessagesAndStoreContent() = runTest(dispatcher) {
+        val historyStore = FakeChatHistoryStore(
+            initialMessages = listOf(
+                ChatMessage(id = 1, role = ChatRole.User, text = "Khoa Nhi"),
+            ),
+        )
+        val viewModel = ChatViewModel(FakeChatRepository(), historyStore)
+
+        viewModel.clearHistory()
+
+        assertTrue(viewModel.uiState.value.messages.isEmpty())
+        assertTrue(historyStore.wasCleared)
+        assertTrue(historyStore.savedMessages.isEmpty())
+    }
 }
 
 private data class ChatRequestCall(
@@ -158,5 +222,23 @@ private class FakeChatRepository(
         } else {
             results.removeFirst()
         }
+    }
+}
+
+private class FakeChatHistoryStore(
+    initialMessages: List<ChatMessage> = emptyList(),
+) : ChatHistoryStore {
+    var savedMessages = initialMessages
+    var wasCleared = false
+
+    override fun loadMessages(): List<ChatMessage> = savedMessages
+
+    override fun saveMessages(messages: List<ChatMessage>) {
+        savedMessages = messages
+    }
+
+    override fun clear() {
+        wasCleared = true
+        savedMessages = emptyList()
     }
 }

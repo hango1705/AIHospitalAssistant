@@ -12,12 +12,14 @@ import java.text.Normalizer
 
 class ChatViewModel(
     private val repository: ChatRepository,
+    private val historyStore: ChatHistoryStore = NoOpChatHistoryStore(),
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(ChatUiState())
+    private val initialMessages = historyStore.loadMessages()
+    private val _uiState = MutableStateFlow(ChatUiState(messages = initialMessages))
     val uiState: StateFlow<ChatUiState> = _uiState.asStateFlow()
 
-    private var nextMessageId = 1L
-    private var latestTopicQuestion: String? = null
+    private var nextMessageId = (initialMessages.maxOfOrNull { it.id } ?: 0L) + 1L
+    private var latestTopicQuestion: String? = topicAnchorFrom(initialMessages)
     private var lastFailedQuestion: PendingQuestion? = null
 
     fun sendQuestion(rawQuestion: String) {
@@ -46,16 +48,18 @@ class ChatViewModel(
         lastFailedQuestion = null
         _uiState.update { state ->
             val cleanedMessages = state.messages.filterNot { it.isError }
+            val updatedMessages = if (addUserMessage) {
+                cleanedMessages + ChatMessage(
+                    id = nextMessageId++,
+                    role = ChatRole.User,
+                    text = question,
+                )
+            } else {
+                cleanedMessages
+            }
+            persistMessages(updatedMessages)
             state.copy(
-                messages = if (addUserMessage) {
-                    cleanedMessages + ChatMessage(
-                        id = nextMessageId++,
-                        role = ChatRole.User,
-                        text = question,
-                    )
-                } else {
-                    cleanedMessages
-                },
+                messages = updatedMessages,
                 isLoading = true,
                 errorMessage = null,
             )
@@ -68,13 +72,15 @@ class ChatViewModel(
                         latestTopicQuestion = contextAnchorFor(question)
                     }
                     _uiState.update { state ->
+                        val updatedMessages = state.messages + ChatMessage(
+                            id = nextMessageId++,
+                            role = ChatRole.Assistant,
+                            text = result.answer.answer,
+                            sources = result.answer.sources,
+                        )
+                        persistMessages(updatedMessages)
                         state.copy(
-                            messages = state.messages + ChatMessage(
-                                id = nextMessageId++,
-                                role = ChatRole.Assistant,
-                                text = result.answer.answer,
-                                sources = result.answer.sources,
-                            ),
+                            messages = updatedMessages,
                             isLoading = false,
                             errorMessage = null,
                         )
@@ -84,13 +90,15 @@ class ChatViewModel(
                 is ChatResult.Failure -> {
                     lastFailedQuestion = PendingQuestion(question, contextHint)
                     _uiState.update { state ->
+                        val updatedMessages = state.messages + ChatMessage(
+                            id = nextMessageId++,
+                            role = ChatRole.Assistant,
+                            text = result.message,
+                            isError = true,
+                        )
+                        persistMessages(updatedMessages)
                         state.copy(
-                            messages = state.messages + ChatMessage(
-                                id = nextMessageId++,
-                                role = ChatRole.Assistant,
-                                text = result.message,
-                                isError = true,
-                            ),
+                            messages = updatedMessages,
                             isLoading = false,
                             errorMessage = result.message,
                         )
@@ -98,6 +106,35 @@ class ChatViewModel(
                 }
             }
         }
+    }
+
+    fun clearHistory() {
+        historyStore.clear()
+        latestTopicQuestion = null
+        lastFailedQuestion = null
+        _uiState.update {
+            it.copy(
+                messages = emptyList(),
+                isLoading = false,
+                errorMessage = null,
+            )
+        }
+    }
+
+    private fun persistMessages(messages: List<ChatMessage>) {
+        historyStore.saveMessages(messages)
+    }
+
+    private fun topicAnchorFrom(messages: List<ChatMessage>): String? {
+        var anchor: String? = null
+        messages
+            .filter { it.role == ChatRole.User && !it.isError }
+            .forEach { message ->
+                if (!isFollowUpQuestion(message.text)) {
+                    anchor = contextAnchorFor(message.text)
+                }
+            }
+        return anchor
     }
 
     private fun isFollowUpQuestion(question: String): Boolean {
@@ -178,11 +215,12 @@ class ChatViewModel(
 
     class Factory(
         private val repository: ChatRepository,
+        private val historyStore: ChatHistoryStore = NoOpChatHistoryStore(),
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(ChatViewModel::class.java)) {
-                return ChatViewModel(repository) as T
+                return ChatViewModel(repository, historyStore) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

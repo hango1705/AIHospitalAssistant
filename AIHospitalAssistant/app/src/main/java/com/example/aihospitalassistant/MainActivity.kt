@@ -10,6 +10,7 @@ import com.example.aihospitalassistant.chat.ChatScreen
 import com.example.aihospitalassistant.chat.ChatServiceFactory
 import com.example.aihospitalassistant.chat.ChatViewModel
 import com.example.aihospitalassistant.chat.DefaultChatRepository
+import com.example.aihospitalassistant.chat.SharedPreferencesChatHistoryStore
 import com.example.aihospitalassistant.ui.theme.AIHospitalAssistantTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,8 +24,11 @@ class MainActivity : ComponentActivity() {
                         ChatServiceFactory.create(BuildConfig.CHAT_API_BASE_URL),
                     )
                 }
+                val historyStore = remember {
+                    SharedPreferencesChatHistoryStore(applicationContext)
+                }
                 val viewModel: ChatViewModel = viewModel(
-                    factory = ChatViewModel.Factory(repository),
+                    factory = ChatViewModel.Factory(repository, historyStore),
                 )
                 ChatScreen(viewModel = viewModel)
             }

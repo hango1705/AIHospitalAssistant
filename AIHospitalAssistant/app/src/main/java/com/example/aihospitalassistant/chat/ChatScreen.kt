@@ -65,6 +65,7 @@ fun ChatScreen(
         state = state,
         onSendQuestion = viewModel::sendQuestion,
         onRetry = viewModel::retryLastQuestion,
+        onClearHistory = viewModel::clearHistory,
         modifier = modifier,
     )
 }
@@ -75,6 +76,7 @@ fun ChatScreenContent(
     state: ChatUiState,
     onSendQuestion: (String) -> Unit,
     onRetry: () -> Unit,
+    onClearHistory: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -100,6 +102,16 @@ fun ChatScreenContent(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
                 ),
+                actions = {
+                    if (state.messages.isNotEmpty()) {
+                        TextButton(
+                            enabled = !state.isLoading,
+                            onClick = onClearHistory,
+                        ) {
+                            Text("Xóa")
+                        }
+                    }
+                },
             )
         },
         bottomBar = {
@@ -443,6 +455,7 @@ private fun ChatScreenPreview() {
                 ),
                 onSendQuestion = {},
                 onRetry = {},
+                onClearHistory = {},
             )
         }
     }
