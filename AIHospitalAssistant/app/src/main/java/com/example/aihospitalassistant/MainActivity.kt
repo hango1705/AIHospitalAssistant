@@ -11,6 +11,7 @@ import com.example.aihospitalassistant.chat.ChatServiceFactory
 import com.example.aihospitalassistant.chat.ChatViewModel
 import com.example.aihospitalassistant.chat.DefaultChatRepository
 import com.example.aihospitalassistant.chat.SharedPreferencesChatHistoryStore
+import com.example.aihospitalassistant.chat.SharedPreferencesSessionStore
 import com.example.aihospitalassistant.ui.theme.AIHospitalAssistantTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,6 +23,7 @@ class MainActivity : ComponentActivity() {
                 val repository = remember {
                     DefaultChatRepository(
                         ChatServiceFactory.create(BuildConfig.CHAT_API_BASE_URL),
+                        SharedPreferencesSessionStore(applicationContext),
                     )
                 }
                 val historyStore = remember {

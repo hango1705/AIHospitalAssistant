@@ -183,10 +183,33 @@ class ChatViewModelTest {
         val viewModel = ChatViewModel(FakeChatRepository(), historyStore)
 
         viewModel.clearHistory()
+        advanceUntilIdle()
 
         assertTrue(viewModel.uiState.value.messages.isEmpty())
         assertTrue(historyStore.wasCleared)
         assertTrue(historyStore.savedMessages.isEmpty())
+    }
+
+    @Test
+    fun loginUpdatesSessionState() = runTest(dispatcher) {
+        val repository = FakeChatRepository()
+        val viewModel = ChatViewModel(repository)
+
+        viewModel.login("user@example.com", "secret123")
+        advanceUntilIdle()
+
+        assertEquals("user@example.com", viewModel.uiState.value.session?.email)
+    }
+
+    @Test
+    fun appointmentShowsOperationMessage() = runTest(dispatcher) {
+        val repository = FakeChatRepository(session = UserSession("token", "user@example.com", "User", "patient"))
+        val viewModel = ChatViewModel(repository)
+
+        viewModel.createAppointment("Nguyễn Văn A", "0912345678", "Khoa Nhi", "2026-05-20 08:00", "Khám")
+        advanceUntilIdle()
+
+        assertEquals("Đã gửi yêu cầu đặt lịch khám.", viewModel.uiState.value.operationMessage)
     }
 }
 
@@ -196,6 +219,7 @@ private data class ChatRequestCall(
 )
 
 private class FakeChatRepository(
+    private var session: UserSession? = null,
     private val results: ArrayDeque<ChatResult> = ArrayDeque(
         listOf(
             ChatResult.Success(
@@ -215,6 +239,22 @@ private class FakeChatRepository(
 ) : ChatRepository {
     val calls = mutableListOf<ChatRequestCall>()
 
+    override fun currentSession(): UserSession? = session
+
+    override suspend fun register(email: String, fullName: String, password: String): OperationResult {
+        session = UserSession("token", email, fullName, "patient")
+        return OperationResult.Success
+    }
+
+    override suspend fun login(email: String, password: String): OperationResult {
+        session = UserSession("token", email, "User", "patient")
+        return OperationResult.Success
+    }
+
+    override fun logout() {
+        session = null
+    }
+
     override suspend fun ask(question: String, contextHint: String?): ChatResult {
         calls += ChatRequestCall(question, contextHint)
         return if (results.isEmpty()) {
@@ -223,6 +263,20 @@ private class FakeChatRepository(
             results.removeFirst()
         }
     }
+
+    override suspend fun loadServerHistory(): Result<List<ChatMessage>> = Result.success(emptyList())
+
+    override suspend fun clearServerHistory(): OperationResult = OperationResult.Success
+
+    override suspend fun createAppointment(
+        patientName: String,
+        phone: String,
+        department: String,
+        appointmentDate: String,
+        reason: String,
+    ): OperationResult = OperationResult.Success
+
+    override suspend fun requestKbUpdate(note: String): OperationResult = OperationResult.Success
 }
 
 private class FakeChatHistoryStore(

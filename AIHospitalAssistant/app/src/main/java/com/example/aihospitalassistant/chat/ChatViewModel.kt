@@ -15,12 +15,91 @@ class ChatViewModel(
     private val historyStore: ChatHistoryStore = NoOpChatHistoryStore(),
 ) : ViewModel() {
     private val initialMessages = historyStore.loadMessages()
-    private val _uiState = MutableStateFlow(ChatUiState(messages = initialMessages))
+    private val _uiState = MutableStateFlow(
+        ChatUiState(
+            messages = initialMessages,
+            session = repository.currentSession(),
+        ),
+    )
     val uiState: StateFlow<ChatUiState> = _uiState.asStateFlow()
 
     private var nextMessageId = (initialMessages.maxOfOrNull { it.id } ?: 0L) + 1L
     private var latestTopicQuestion: String? = topicAnchorFrom(initialMessages)
     private var lastFailedQuestion: PendingQuestion? = null
+
+    init {
+        if (repository.currentSession() != null) {
+            loadServerHistory()
+        }
+    }
+
+    fun login(email: String, password: String) {
+        authenticate { repository.login(email.trim(), password) }
+    }
+
+    fun register(email: String, fullName: String, password: String) {
+        authenticate { repository.register(email.trim(), fullName.trim(), password) }
+    }
+
+    private fun authenticate(call: suspend () -> OperationResult) {
+        if (_uiState.value.isAuthLoading) {
+            return
+        }
+        _uiState.update { it.copy(isAuthLoading = true, authErrorMessage = null) }
+        viewModelScope.launch {
+            when (val result = call()) {
+                OperationResult.Success -> {
+                    _uiState.update {
+                        it.copy(
+                            session = repository.currentSession(),
+                            isAuthLoading = false,
+                            authErrorMessage = null,
+                            operationMessage = "Đăng nhập thành công.",
+                        )
+                    }
+                    loadServerHistory()
+                }
+
+                is OperationResult.Failure -> {
+                    _uiState.update {
+                        it.copy(
+                            isAuthLoading = false,
+                            authErrorMessage = result.message,
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    fun logout() {
+        repository.logout()
+        historyStore.clear()
+        latestTopicQuestion = null
+        lastFailedQuestion = null
+        _uiState.update {
+            it.copy(
+                messages = emptyList(),
+                session = null,
+                errorMessage = null,
+                authErrorMessage = null,
+                operationMessage = null,
+            )
+        }
+    }
+
+    private fun loadServerHistory() {
+        viewModelScope.launch {
+            repository.loadServerHistory()
+                .onSuccess { messages ->
+                    if (messages.isNotEmpty()) {
+                        latestTopicQuestion = topicAnchorFrom(messages)
+                        historyStore.saveMessages(messages)
+                        _uiState.update { it.copy(messages = messages) }
+                    }
+                }
+        }
+    }
 
     fun sendQuestion(rawQuestion: String) {
         val question = rawQuestion.trim()
@@ -109,15 +188,47 @@ class ChatViewModel(
     }
 
     fun clearHistory() {
-        historyStore.clear()
-        latestTopicQuestion = null
-        lastFailedQuestion = null
-        _uiState.update {
-            it.copy(
-                messages = emptyList(),
-                isLoading = false,
-                errorMessage = null,
-            )
+        viewModelScope.launch {
+            repository.clearServerHistory()
+            historyStore.clear()
+            latestTopicQuestion = null
+            lastFailedQuestion = null
+            _uiState.update {
+                it.copy(
+                    messages = emptyList(),
+                    isLoading = false,
+                    errorMessage = null,
+                    operationMessage = "Đã xóa lịch sử chat.",
+                )
+            }
+        }
+    }
+
+    fun createAppointment(patientName: String, phone: String, department: String, appointmentDate: String, reason: String) {
+        viewModelScope.launch {
+            val result = repository.createAppointment(patientName, phone, department, appointmentDate, reason)
+            _uiState.update {
+                it.copy(
+                    operationMessage = when (result) {
+                        OperationResult.Success -> "Đã gửi yêu cầu đặt lịch khám."
+                        is OperationResult.Failure -> result.message
+                    },
+                )
+            }
+        }
+    }
+
+    fun requestKnowledgeBaseUpdate(note: String) {
+        viewModelScope.launch {
+            val result = repository.requestKbUpdate(note.ifBlank { "Admin requested knowledge base update" })
+            _uiState.update {
+                it.copy(
+                    operationMessage = when (result) {
+                        OperationResult.Success -> "Đã tạo yêu cầu cập nhật knowledge base."
+                        is OperationResult.Failure -> result.message
+                    },
+                )
+            }
         }
     }
 

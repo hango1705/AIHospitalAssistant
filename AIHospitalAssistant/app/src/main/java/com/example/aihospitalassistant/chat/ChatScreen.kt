@@ -66,6 +66,11 @@ fun ChatScreen(
         onSendQuestion = viewModel::sendQuestion,
         onRetry = viewModel::retryLastQuestion,
         onClearHistory = viewModel::clearHistory,
+        onLogin = viewModel::login,
+        onRegister = viewModel::register,
+        onLogout = viewModel::logout,
+        onCreateAppointment = viewModel::createAppointment,
+        onRequestKbUpdate = viewModel::requestKnowledgeBaseUpdate,
         modifier = modifier,
     )
 }
@@ -77,8 +82,16 @@ fun ChatScreenContent(
     onSendQuestion: (String) -> Unit,
     onRetry: () -> Unit,
     onClearHistory: () -> Unit,
+    onLogin: (String, String) -> Unit,
+    onRegister: (String, String, String) -> Unit,
+    onLogout: () -> Unit,
+    onCreateAppointment: (String, String, String, String, String) -> Unit,
+    onRequestKbUpdate: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    var showAppointmentForm by remember { mutableStateOf(false) }
+    var showAdminForm by remember { mutableStateOf(false) }
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
@@ -103,40 +116,79 @@ fun ChatScreenContent(
                     containerColor = MaterialTheme.colorScheme.surface,
                 ),
                 actions = {
-                    if (state.messages.isNotEmpty()) {
+                    val session = state.session
+                    if (session != null) {
+                        TextButton(
+                            enabled = !state.isLoading,
+                            onClick = { showAppointmentForm = !showAppointmentForm },
+                        ) {
+                            Text("Đặt lịch")
+                        }
+                        if (session.role == "admin") {
+                            TextButton(
+                                enabled = !state.isLoading,
+                                onClick = { showAdminForm = !showAdminForm },
+                            ) {
+                                Text("KB")
+                            }
+                        }
                         TextButton(
                             enabled = !state.isLoading,
                             onClick = onClearHistory,
                         ) {
                             Text("Xóa")
                         }
+                        TextButton(onClick = onLogout) {
+                            Text("Thoát")
+                        }
                     }
                 },
             )
         },
         bottomBar = {
-            ChatInputBar(
-                isLoading = state.isLoading,
-                onSendQuestion = onSendQuestion,
-            )
+            if (state.session != null) {
+                ChatInputBar(
+                    isLoading = state.isLoading,
+                    onSendQuestion = onSendQuestion,
+                )
+            }
         },
     ) { innerPadding ->
-        ChatConversation(
-            state = state,
-            onSendQuestion = onSendQuestion,
-            onRetry = onRetry,
-            modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxSize(),
-        )
+        if (state.session == null) {
+            AuthPanel(
+                state = state,
+                onLogin = onLogin,
+                onRegister = onRegister,
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .fillMaxSize(),
+            )
+        } else {
+            ChatConversation(
+                state = state,
+                showAppointmentForm = showAppointmentForm,
+                showAdminForm = showAdminForm,
+                onSendQuestion = onSendQuestion,
+                onRetry = onRetry,
+                onCreateAppointment = onCreateAppointment,
+                onRequestKbUpdate = onRequestKbUpdate,
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .fillMaxSize(),
+            )
+        }
     }
 }
 
 @Composable
 private fun ChatConversation(
     state: ChatUiState,
+    showAppointmentForm: Boolean,
+    showAdminForm: Boolean,
     onSendQuestion: (String) -> Unit,
     onRetry: () -> Unit,
+    onCreateAppointment: (String, String, String, String, String) -> Unit,
+    onRequestKbUpdate: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val listState = rememberLazyListState()
@@ -153,6 +205,34 @@ private fun ChatConversation(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
+        if (state.operationMessage != null) {
+            item {
+                Surface(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(8.dp),
+                    color = MaterialTheme.colorScheme.secondaryContainer,
+                ) {
+                    Text(
+                        text = state.operationMessage,
+                        modifier = Modifier.padding(12.dp),
+                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    )
+                }
+            }
+        }
+
+        if (showAppointmentForm) {
+            item {
+                AppointmentPanel(onCreateAppointment = onCreateAppointment)
+            }
+        }
+
+        if (showAdminForm && state.session?.role == "admin") {
+            item {
+                AdminKbPanel(onRequestKbUpdate = onRequestKbUpdate)
+            }
+        }
+
         if (state.messages.isEmpty()) {
             item {
                 WelcomePanel(
@@ -175,6 +255,139 @@ private fun ChatConversation(
         if (state.errorMessage != null && !state.isLoading) {
             item {
                 RetryRow(onRetry = onRetry)
+            }
+        }
+    }
+}
+
+@Composable
+private fun AuthPanel(
+    state: ChatUiState,
+    onLogin: (String, String) -> Unit,
+    onRegister: (String, String, String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    var fullName by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var isRegister by remember { mutableStateOf(false) }
+
+    Column(
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.background)
+            .padding(20.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        Text(
+            text = if (isRegister) "Tạo tài khoản" else "Đăng nhập",
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.SemiBold,
+        )
+        if (isRegister) {
+            OutlinedTextField(
+                value = fullName,
+                onValueChange = { fullName = it },
+                modifier = Modifier.fillMaxWidth(),
+                label = { Text("Họ tên") },
+                shape = RoundedCornerShape(8.dp),
+            )
+        }
+        OutlinedTextField(
+            value = email,
+            onValueChange = { email = it },
+            modifier = Modifier.fillMaxWidth(),
+            label = { Text("Email") },
+            shape = RoundedCornerShape(8.dp),
+        )
+        OutlinedTextField(
+            value = password,
+            onValueChange = { password = it },
+            modifier = Modifier.fillMaxWidth(),
+            label = { Text("Mật khẩu") },
+            shape = RoundedCornerShape(8.dp),
+        )
+        if (state.authErrorMessage != null) {
+            Text(
+                text = state.authErrorMessage,
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.bodyMedium,
+            )
+        }
+        Button(
+            enabled = !state.isAuthLoading && email.isNotBlank() && password.length >= 6 && (!isRegister || fullName.isNotBlank()),
+            onClick = {
+                if (isRegister) {
+                    onRegister(email, fullName, password)
+                } else {
+                    onLogin(email, password)
+                }
+            },
+            shape = RoundedCornerShape(8.dp),
+        ) {
+            Text(if (isRegister) "Đăng ký" else "Đăng nhập")
+        }
+        TextButton(onClick = { isRegister = !isRegister }) {
+            Text(if (isRegister) "Tôi đã có tài khoản" else "Tạo tài khoản mới")
+        }
+    }
+}
+
+@Composable
+private fun AppointmentPanel(
+    onCreateAppointment: (String, String, String, String, String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    var patientName by remember { mutableStateOf("") }
+    var phone by remember { mutableStateOf("") }
+    var department by remember { mutableStateOf("Khoa Khám bệnh") }
+    var appointmentDate by remember { mutableStateOf("") }
+    var reason by remember { mutableStateOf("") }
+
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(8.dp),
+        color = MaterialTheme.colorScheme.surfaceVariant,
+    ) {
+        Column(
+            modifier = Modifier.padding(12.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Text("Đặt lịch khám", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+            OutlinedTextField(patientName, { patientName = it }, modifier = Modifier.fillMaxWidth(), label = { Text("Họ tên bệnh nhân") })
+            OutlinedTextField(phone, { phone = it }, modifier = Modifier.fillMaxWidth(), label = { Text("Số điện thoại") })
+            OutlinedTextField(department, { department = it }, modifier = Modifier.fillMaxWidth(), label = { Text("Khoa/phòng") })
+            OutlinedTextField(appointmentDate, { appointmentDate = it }, modifier = Modifier.fillMaxWidth(), label = { Text("Thời gian mong muốn") })
+            OutlinedTextField(reason, { reason = it }, modifier = Modifier.fillMaxWidth(), label = { Text("Lý do khám") })
+            Button(
+                enabled = patientName.isNotBlank() && phone.isNotBlank() && department.isNotBlank() && appointmentDate.isNotBlank(),
+                onClick = { onCreateAppointment(patientName, phone, department, appointmentDate, reason) },
+                shape = RoundedCornerShape(8.dp),
+            ) {
+                Text("Gửi lịch hẹn")
+            }
+        }
+    }
+}
+
+@Composable
+private fun AdminKbPanel(
+    onRequestKbUpdate: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    var note by remember { mutableStateOf("Cập nhật knowledge base từ nguồn hiện có") }
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(8.dp),
+        color = MaterialTheme.colorScheme.surfaceVariant,
+    ) {
+        Column(
+            modifier = Modifier.padding(12.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Text("Admin cập nhật KB", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+            OutlinedTextField(note, { note = it }, modifier = Modifier.fillMaxWidth(), label = { Text("Ghi chú") })
+            Button(onClick = { onRequestKbUpdate(note) }, shape = RoundedCornerShape(8.dp)) {
+                Text("Tạo yêu cầu cập nhật")
             }
         }
     }
@@ -456,6 +669,11 @@ private fun ChatScreenPreview() {
                 onSendQuestion = {},
                 onRetry = {},
                 onClearHistory = {},
+                onLogin = { _, _ -> },
+                onRegister = { _, _, _ -> },
+                onLogout = {},
+                onCreateAppointment = { _, _, _, _, _ -> },
+                onRequestKbUpdate = {},
             )
         }
     }

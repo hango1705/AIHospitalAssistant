@@ -20,9 +20,21 @@ data class ChatAnswer(
     val sources: List<ChatSource>,
 )
 
+data class UserSession(
+    val token: String,
+    val email: String,
+    val fullName: String,
+    val role: String,
+)
+
 sealed interface ChatResult {
     data class Success(val answer: ChatAnswer) : ChatResult
     data class Failure(val message: String) : ChatResult
+}
+
+sealed interface OperationResult {
+    data object Success : OperationResult
+    data class Failure(val message: String) : OperationResult
 }
 
 data class ChatMessage(
@@ -37,6 +49,10 @@ data class ChatUiState(
     val messages: List<ChatMessage> = emptyList(),
     val isLoading: Boolean = false,
     val errorMessage: String? = null,
+    val session: UserSession? = null,
+    val isAuthLoading: Boolean = false,
+    val authErrorMessage: String? = null,
+    val operationMessage: String? = null,
     val suggestions: List<String> = defaultSuggestions,
 )
 
