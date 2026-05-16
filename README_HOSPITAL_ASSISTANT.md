@@ -83,6 +83,37 @@ Interactive:
 .\.venv\Scripts\python .\scripts\chat_hospital_assistant.py
 ```
 
+## 5. Chạy FastAPI backend cho mobile app
+
+Backend local bọc pipeline RAG hiện có để Android app gọi qua HTTP.
+
+Chạy server:
+
+```powershell
+.\.venv\Scripts\python -m uvicorn hospital_assistant.api:app `
+  --app-dir src `
+  --host 0.0.0.0 `
+  --port 8000
+```
+
+Kiểm tra health:
+
+```powershell
+Invoke-RestMethod -Uri "http://127.0.0.1:8000/health"
+```
+
+Gửi câu hỏi:
+
+```powershell
+Invoke-RestMethod `
+  -Uri "http://127.0.0.1:8000/chat" `
+  -Method Post `
+  -ContentType "application/json" `
+  -Body '{"question":"Bệnh viện A Thái Nguyên ở đâu?","context_hint":null}'
+```
+
+Android emulator dùng base URL `http://10.0.2.2:8000`. Điện thoại thật dùng IP LAN của laptop đang chạy backend.
+
 ## Thiết kế khác với form tham khảo
 
 - Không gom thành `src/rag/*` theo từng khối textbook.
