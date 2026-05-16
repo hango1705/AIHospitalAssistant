@@ -1,0 +1,9 @@
+{
+  "mode": "full",
+  "katana_events": 186,
+  "kept_events": 85,
+  "supplemental_sources": 92,
+  "unique_sources": 135,
+  "depth": 4,
+  "crawl_duration": "4m"
+}

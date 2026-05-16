@@ -1,0 +1,26 @@
+# Phòng Quản Lý Chất Lượng Bệnh Viện
+
+- Source: https://benhvienathainguyen.com.vn/his/department/29/phong-quan-ly-chat-luong-benh-vien
+- Page type: department
+- Topic group: department
+- Department: PHÒNG QUẢN LÝ CHẤT LƯỢNG BỆNH VIỆN
+
+## Summary
+
+PHÒNG QUẢN LÝ CHẤT LƯỢNG BỆNH VIỆN Giới thiệu Trước đây, khi nói đến “Cải tiến chất lượng”, “thực hành 5S” là mình cảm thấy rất bối rối và lo lắng. Bối rối vì không biết bắt đầu từ đâu? Lo lắng vì không biết mình làm có tốt không? Mọi người có ủng hộ không? Lãnh đạo bệnh viện có ủng hộ việc mình làm không?...Nhưng rồi, qua thời gian và cũng từ những niềm đam mê học hỏi, muốn tìm tòi cái mới, muốn mọi thứ càng ngày càng trở nên tốt đẹp hơn, mình đã “vỡ vạc” ra nhiều khía niêm, phương pháp thực hi
+
+## Text
+
+PHÒNG QUẢN LÝ CHẤT LƯỢNG BỆNH VIỆN
+Giới thiệu
+Trước đây, khi nói đến “Cải tiến chất lượng”, “thực hành 5S” là mình cảm thấy rất bối rối và lo lắng. Bối rối vì không biết bắt đầu từ đâu? Lo lắng vì không biết mình làm có tốt không? Mọi người có ủng hộ không? Lãnh đạo bệnh viện có ủng hộ việc mình làm không?...Nhưng rồi, qua thời gian và cũng từ những niềm đam mê học hỏi, muốn tìm tòi cái mới, muốn mọi thứ càng ngày càng trở nên tốt đẹp hơn, mình đã “vỡ vạc” ra nhiều khía niêm, phương pháp thực hiện cải tiến chất lượng. Rồi dần dần, cứ thấy cái gì có ý nghĩa cho bệnh nhân và/hoặc bệnh viện mà sự phấn đấu có thể với tới được thì mình làm, và lẽ dĩ nhiên là lôi kéo cả guồng máy của Bệnh viện cùng tham gia. Mình để ý rất nhiều đến các thuật ngữ "quản lý chất lượng", đến "5S"- đặc biệt từ khi được tìm hiểu về những khái niệm này qua các buổi tập huấn về CTCL của Dự án Norred. Nhưng dù có được học, tập huấn, được trang bị cả một đống kiến thức mà không áp dụng được vào thực tế thì bao nhiêu kiến thức cũng thành ra vô nghĩa, nhất là khi không tìm được sự đống cảm và chia sẻ của đồng nghiệp xung quanh.
+Đến một ngày mình lên gặp Sếp mình và nói: "Em muốn tổ chức một buổi tập huấn về 5S, mời chuyên gia về và triển khai 5S trong toàn bệnh viện”. Sếp nói: “Anh nhất trí!”. Sau đó thì, một buổi tập huấn, một “Ngày Hội 5S” đã diễn ra trong bệnh viện vô cùng sôi nổi, thí điểm tại 3 khoa phòng trong bệnh viện. Mọi người dường như đã hiểu, đã “ngấm” 5S rồi! Không chỉ dừng lại ở đó, Ban giám đốc đã yêu cầu tổ chức một Hội thi phát động nhân viên toàn bệnh viện làm 5S.
+Hội thi đã được lên Kế hoạch chuẩn bị chu đáo và tỉ mỉ. Các thành viên Ban tổ chức thiết kế bảng điểm chấm cho từng vị trí trong khoa/phòng. Ra thời gian thực hiện. Sau đó, Ban giám khảo đã đi từng bộ phận để chấm, quả là một dịp để Ban giám khảo phải cân não đấy!
+Mình đi khắp bệnh viện, thấy mọi người làm 5S nhiệt tình quá, sáng tạo quá. Vài ngày đi qua đi lại lại thấy có cái gì đó mơi mới thì phải, gọn hơn, sạch hơn, tiện ích hơn. Gặp mấy anh chị chia sẻ: “Tốt quá em ạ, rất thiết thực”. Chị Trưởng khoa HSCC nói: “Trước kia cấp cứu bệnh nhân đi tìm cái bệnh án đến mệt, giờ muốn là có ngay!” Chị Trưởng phòng Tài chính kế toán cũng nói: “Tốt đấy em ạ, chị thấy thiết thực lắm, áp dụng được cả trong nhà mình ấy!” Còn gì vui hơn thế nữa.
+5S không chỉ là một công cụ CTCL mà nó còn là một công cụ giúp cho việc làm việc nhóm rất hiệu quả. Và CTCL không chỉ là làm một lần, làm thế thôi mà ta phải quan tâm chau chuốt hàng ngày. Ví như ngày nào ta cũng quét nhà ấy, mà sao vẫn thấy quét ra bụi bặm nhỉ? Nên ngày nào ta cũng phải quét, thậm chí ngày nay còn quét kỹ hơn ngày hôm qua. Ngày mai quét kỹ hơn ngày hôm nay nữa.
+Đi dự các lớp tập huấn, mình thấy nhiều anh chị chia sẻ, “Sếp” không ủng hộ lắm việc làm CTCL. Nhưng mình nghĩ không hẳn vậy, quan trọng là chúng ta quyết tâm thì đều có cách để thiết phục Sếp vào cuộc chỉ đạo chương trình thôi. Vì Sếp nào chả thích đơn vị mình ngày càng tiến bộ, ngày càng đổi mới, hiệu quả hoạt động ngày càng cao.
+Mình thích câu được viết trong cuốn sách của anh Trí: "TPS dạy cho mỗi nhân viên cách tạo ra cải tiến chứ không để họ “tự do sáng tạo”. Tuy nhiên, nếu thấy việc cải tiến của các bạn là hay, là ý nghĩa mà sếp vẫn chưa quan tâm hay áp dụng thì đừng vội nản lòng mà giảm đi sự nhiệt huyết. Có thể là sự cải tiến đó không nằm trong định hướng phát triển của người sếp, có thể người sếp đang bận tâm về những điều gì khác mà chưa chú ý đến đề xuất cải tiến của bạn, cũng có thể là người sếp chưa hiểu được. Cần phải có thời gian. Giống như 15 bậc thang của LEAN vậy!!!”
+Giờ đây, khi đã cảm nhận được hết những sẻ chia của các đồng nghiệp, sự nhiệt tình của mọi thành viên trong đơn vị, mình cảm thấy rất xúc động vì thấy việc làm, ý tưởng của mình vô cùng có ý nghĩa. Mong muốn mọi người sẽ cố gắng hơn nữa để giúp cho khoa/phòng, bệnh viện ngày càng tốt đẹp hơn. Mang lại một môi trường bệnh viện an toàn và tiện ích cho không chỉ bệnh nhân mà cho chình nhân viên y tế chúng ta.
+Và, rất cảm ơn anh Thế Anh, anh Phương Danh đã giúp đỡ chúng em, tạo nguồn cảm hứng cho chúng em thêm thành công trong việc triển khai các hoạt động thực hành 5S trong bệnh viện.
+Hy vọng có dịp nào đó lại được gặp lại các anh trong các hoạt động cải tiến chất lượng.
+BS NguyễnThị Quyết - BV A TháiNguyên

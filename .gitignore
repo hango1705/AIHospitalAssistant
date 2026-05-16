@@ -1,0 +1,91 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Environment variables and local secrets
+.env
+.env.*
+!.env.example
+
+# Package/build artifacts
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Local data and model artifacts
+data/raw/
+data/processed/
+data/cache/
+models/
+*.sqlite
+*.sqlite3
+*.db
+*.faiss
+*.pkl
+data/index/
+
+# IDE/editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Microsoft Office temporary files
+~$*.docx
+~$*.xlsx
+~$*.pptx
+
+# Android Studio and Gradle
+AIHospitalAssistant/.gradle/
+AIHospitalAssistant/.kotlin/
+AIHospitalAssistant/.idea/
+AIHospitalAssistant/local.properties
+AIHospitalAssistant/build/
+AIHospitalAssistant/app/build/
+AIHospitalAssistant/*/build/
+
+# Android build artifacts
+*.apk
+*.ap_
+*.aab
+*.dex
+
+# Android native build outputs
+AIHospitalAssistant/.cxx/
+AIHospitalAssistant/.externalNativeBuild/
+
+# Android captures and profiling
+AIHospitalAssistant/captures/
+
+# Android signing and local secrets
+*.jks
+*.keystore
+keystore.properties

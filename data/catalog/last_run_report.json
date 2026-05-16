@@ -1,0 +1,10 @@
+{
+  "mode": "full",
+  "katana_depth": 4,
+  "crawl_duration": "4m",
+  "sources_discovered": 135,
+  "sources_selected": 135,
+  "documents_written": 135,
+  "tables_written": 90,
+  "errors": 0
+}
