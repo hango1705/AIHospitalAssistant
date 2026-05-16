@@ -77,6 +77,18 @@ class AppStore:
                 );
                 """
             )
+            existing_admin = connection.execute(
+                "SELECT id FROM users WHERE email = ?",
+                ("admin",),
+            ).fetchone()
+            if existing_admin is None:
+                connection.execute(
+                    """
+                    INSERT INTO users (email, full_name, password_hash, role, created_at)
+                    VALUES (?, ?, ?, ?, ?)
+                    """,
+                    ("admin", "Administrator", self._hash_password("admin"), "admin", utc_now_iso()),
+                )
 
     def _hash_password(self, password: str, salt: str | None = None) -> str:
         salt = salt or secrets.token_hex(16)
@@ -94,14 +106,12 @@ class AppStore:
     def create_user(self, email: str, full_name: str, password: str) -> dict:
         normalized_email = email.strip().lower()
         with self._connect() as connection:
-            user_count = connection.execute("SELECT COUNT(*) FROM users").fetchone()[0]
-            role = "admin" if user_count == 0 else "patient"
             cursor = connection.execute(
                 """
                 INSERT INTO users (email, full_name, password_hash, role, created_at)
                 VALUES (?, ?, ?, ?, ?)
                 """,
-                (normalized_email, full_name.strip(), self._hash_password(password), role, utc_now_iso()),
+                (normalized_email, full_name.strip(), self._hash_password(password), "patient", utc_now_iso()),
             )
             user_id = int(cursor.lastrowid)
         return self.get_user(user_id) or {}

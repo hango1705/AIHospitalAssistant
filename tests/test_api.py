@@ -93,11 +93,11 @@ def test_auth_chat_history_appointment_and_admin_kb_update(tmp_path) -> None:
 
     register = client.post(
         "/auth/register",
-        json={"email": "admin@example.com", "full_name": "Admin User", "password": "secret123"},
+        json={"email": "patient@example.com", "full_name": "Patient User", "password": "secret123"},
     )
     assert register.status_code == 200
     token = register.json()["token"]
-    assert register.json()["user"]["role"] == "admin"
+    assert register.json()["user"]["role"] == "patient"
     headers = {"Authorization": f"Bearer {token}"}
 
     chat = client.post("/chat", json={"question": "Bệnh viện A ở đâu?"}, headers=headers)
@@ -127,10 +127,33 @@ def test_auth_chat_history_appointment_and_admin_kb_update(tmp_path) -> None:
     assert appointments.status_code == 200
     assert appointments.json()["appointments"][0]["department"] == "Khoa Nhi"
 
-    kb_job = client.post("/admin/kb/update", json={"note": "Refresh KB"}, headers=headers)
+    admin_login = client.post("/auth/login", json={"email": "admin", "password": "admin"})
+    assert admin_login.status_code == 200
+    admin_headers = {"Authorization": f"Bearer {admin_login.json()['token']}"}
+
+    kb_job = client.post("/admin/kb/update", json={"note": "Refresh KB"}, headers=admin_headers)
     assert kb_job.status_code == 200
     assert kb_job.json()["status"] == "queued"
 
-    jobs = client.get("/admin/kb/jobs", headers=headers)
+    jobs = client.get("/admin/kb/jobs", headers=admin_headers)
     assert jobs.status_code == 200
     assert jobs.json()["jobs"][0]["note"] == "Refresh KB"
+
+
+def test_default_admin_exists_and_registered_users_are_patients(tmp_path) -> None:
+    store = AppStore(tmp_path / "app.sqlite3")
+    client = TestClient(create_app(assistant_factory=StubAssistant, store_factory=lambda: store))
+
+    admin_login = client.post("/auth/login", json={"email": "admin", "password": "admin"})
+
+    assert admin_login.status_code == 200
+    assert admin_login.json()["user"]["email"] == "admin"
+    assert admin_login.json()["user"]["role"] == "admin"
+
+    register = client.post(
+        "/auth/register",
+        json={"email": "patient@example.com", "full_name": "Patient User", "password": "secret123"},
+    )
+
+    assert register.status_code == 200
+    assert register.json()["user"]["role"] == "patient"
