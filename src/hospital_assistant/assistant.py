@@ -121,6 +121,29 @@ def _tokenize_for_bm25(value: str) -> list[str]:
     return [token for token in _normalize_match(value).split() if token]
 
 
+def _ground_short_hospital_question(question: str) -> str:
+    normalized = _normalize_match(question)
+    if not normalized or "benh vien a" in normalized:
+        return question
+
+    if any(token in normalized for token in ("dia chi", "o dau", "nam o dau", "dia diem")):
+        return "Địa chỉ Bệnh viện A Thái Nguyên"
+
+    if any(token in normalized for token in ("so dien thoai", "dien thoai", "hotline", "lien he")):
+        return "Số điện thoại liên hệ của Bệnh viện A Thái Nguyên"
+
+    if "email" in normalized or "mail" in normalized:
+        return "Email liên hệ của Bệnh viện A Thái Nguyên"
+
+    if "gia" in normalized and "kham" in normalized:
+        return "Giá khám bệnh tại Bệnh viện A"
+
+    if "quy trinh" in normalized and "kham" in normalized and "benh vien" not in normalized:
+        return "Quy trình khám bệnh tại Bệnh viện A Thái Nguyên"
+
+    return question
+
+
 def _normalize_noisy_token(token: str) -> str:
     value = _normalize_match(token)
     if not value:
@@ -1574,7 +1597,12 @@ class HospitalAssistant:
         if not page_docs:
             return None
 
-        if "tong quat" in normalized or "gia kham o benh vien a" in normalized or normalized.strip() == "gia kham benh vien a":
+        if (
+            "tong quat" in normalized
+            or "gia kham o benh vien a" in normalized
+            or "gia kham benh tai benh vien a" in normalized
+            or normalized.strip() == "gia kham benh vien a"
+        ):
             for doc in page_docs:
                 if "gia kham benh" not in _normalize_match(doc.page_content):
                     continue
@@ -1740,34 +1768,42 @@ class HospitalAssistant:
         lambda_mult: float = DEFAULT_RETRIEVAL_LAMBDA,
         context_hint: str | None = None,
     ) -> AnswerResult:
+        original_question = question
+        question = _ground_short_hospital_question(question)
+
+        def finalize(result: AnswerResult) -> AnswerResult:
+            if result.question == original_question:
+                return result
+            return result.model_copy(update={"question": original_question})
+
         search_query = self._compose_search_query(question, context_hint)
         structured_bed_day = self._structured_bed_day_answer(search_query)
         if structured_bed_day is not None:
-            return structured_bed_day
+            return finalize(structured_bed_day)
 
         structured_faq_contact = self._structured_faq_contact_answer(question, search_query=search_query)
         if structured_faq_contact is not None:
-            return structured_faq_contact
+            return finalize(structured_faq_contact)
 
         structured_department_contact = self._structured_department_contact_answer(question, search_query=search_query)
         if structured_department_contact is not None:
-            return structured_department_contact
+            return finalize(structured_department_contact)
 
         structured_vaccine = self._structured_vaccine_answer(search_query)
         if structured_vaccine is not None:
-            return structured_vaccine
+            return finalize(structured_vaccine)
 
         structured_management_contact = self._structured_management_contact_answer(search_query)
         if structured_management_contact is not None:
-            return structured_management_contact
+            return finalize(structured_management_contact)
 
         structured_management_team = self._structured_management_team_answer(question)
         if structured_management_team is not None:
-            return structured_management_team
+            return finalize(structured_management_team)
 
         structured_director = self._structured_director_answer(question)
         if structured_director is not None:
-            return structured_director
+            return finalize(structured_director)
 
         pricing_query = search_query
         pricing_focus = None
@@ -1777,18 +1813,18 @@ class HospitalAssistant:
 
         structured_exam_pricing = self._structured_exam_price_answer(pricing_query)
         if structured_exam_pricing is not None:
-            return structured_exam_pricing
+            return finalize(structured_exam_pricing)
 
         structured_consult_pricing = self._structured_consult_price_answer(pricing_query)
         if structured_consult_pricing is not None:
-            return structured_consult_pricing
+            return finalize(structured_consult_pricing)
 
         structured_pricing = self._structured_pricing_answer(pricing_query, focus_question=pricing_focus)
         if structured_pricing is not None:
-            return structured_pricing
+            return finalize(structured_pricing)
         if self._is_price_query(pricing_query):
             return AnswerResult(
-                question=question,
+                question=original_question,
                 answer="Tôi chưa tìm thấy thông tin phù hợp trong cơ sở tri thức hiện có.",
                 sources=[],
             )
@@ -1796,10 +1832,10 @@ class HospitalAssistant:
         docs = self.retrieve(question, k=k, fetch_k=fetch_k, lambda_mult=lambda_mult, search_query=search_query)
         structured = self._structured_hospital_profile_answer(question, docs)
         if structured is not None:
-            return structured
+            return finalize(structured)
         if not docs:
             return AnswerResult(
-                question=question,
+                question=original_question,
                 answer="Tôi chưa tìm thấy thông tin phù hợp trong cơ sở tri thức hiện có.",
                 sources=[],
             )
@@ -1824,4 +1860,4 @@ class HospitalAssistant:
             ]
         else:
             filtered_sources = sources
-        return AnswerResult(question=question, answer=answer, sources=filtered_sources)
+        return AnswerResult(question=original_question, answer=answer, sources=filtered_sources)
