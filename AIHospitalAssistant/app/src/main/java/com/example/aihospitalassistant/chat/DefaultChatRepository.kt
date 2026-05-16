@@ -45,17 +45,29 @@ class DefaultChatRepository(
         }
     }
 
-    override fun logout() {
+    override suspend fun logout(): OperationResult {
+        val auth = session?.authorizationHeader()
+        if (auth != null) {
+            try {
+                api.logout(auth)
+            } catch (_: IOException) {
+                // Local logout must still clear the token even when the network is unavailable.
+            } catch (_: RuntimeException) {
+                // Keep logout idempotent for malformed backend responses.
+            }
+        }
         session = null
         sessionStore.clear()
+        return OperationResult.Success
     }
 
-    override suspend fun ask(question: String, contextHint: String?): ChatResult {
+    override suspend fun ask(question: String, contextHint: String?, conversationId: String?): ChatResult {
         return try {
             val response = api.chat(
                 ChatRequestDto(
                     question = question,
                     contextHint = contextHint,
+                    conversationId = conversationId,
                 ),
                 authorization = session?.authorizationHeader(),
             )
@@ -68,6 +80,7 @@ class DefaultChatRepository(
                 ChatAnswer(
                     answer = body.answer,
                     sources = body.sources.map { it.toDomain() },
+                    conversationId = body.conversationId,
                 ),
             )
         } catch (_: IOException) {
@@ -103,6 +116,46 @@ class DefaultChatRepository(
         }
     }
 
+    override suspend fun loadConversations(): Result<List<ConversationSummary>> {
+        val auth = session?.authorizationHeader() ?: return Result.success(emptyList())
+        return try {
+            val response = api.conversations(auth)
+            if (!response.isSuccessful) {
+                return Result.failure(IllegalStateException("Backend trả về lỗi ${response.code()}."))
+            }
+            Result.success(response.body()?.conversations.orEmpty().map { it.toDomain() })
+        } catch (exc: IOException) {
+            Result.failure(exc)
+        } catch (exc: RuntimeException) {
+            Result.failure(exc)
+        }
+    }
+
+    override suspend fun loadConversationMessages(conversationId: String): Result<List<ChatMessage>> {
+        val auth = session?.authorizationHeader() ?: return Result.success(emptyList())
+        return try {
+            val response = api.conversationMessages(auth, conversationId)
+            if (!response.isSuccessful) {
+                return Result.failure(IllegalStateException("Backend trả về lỗi ${response.code()}."))
+            }
+            Result.success(response.body()?.messages.orEmpty().map { it.toDomain() })
+        } catch (exc: IOException) {
+            Result.failure(exc)
+        } catch (exc: RuntimeException) {
+            Result.failure(exc)
+        }
+    }
+
+    override suspend fun deleteConversation(conversationId: String): OperationResult {
+        val auth = session?.authorizationHeader() ?: return OperationResult.Failure("Bạn cần đăng nhập.")
+        return try {
+            val response = api.deleteConversation(auth, conversationId)
+            if (response.isSuccessful) OperationResult.Success else OperationResult.Failure("Không xóa được cuộc trò chuyện.")
+        } catch (_: IOException) {
+            OperationResult.Failure("Không kết nối được backend.")
+        }
+    }
+
     override suspend fun createAppointment(
         patientName: String,
         phone: String,
@@ -119,6 +172,40 @@ class DefaultChatRepository(
             if (response.isSuccessful) OperationResult.Success else OperationResult.Failure("Không gửi được lịch hẹn.")
         } catch (_: IOException) {
             OperationResult.Failure("Không kết nối được backend.")
+        }
+    }
+
+    override suspend fun loadAppointments(): Result<List<Appointment>> {
+        val auth = session?.authorizationHeader() ?: return Result.success(emptyList())
+        return try {
+            val response = if (session?.role == "admin") {
+                api.adminAppointments(auth)
+            } else {
+                api.appointments(auth)
+            }
+            if (!response.isSuccessful) {
+                return Result.failure(IllegalStateException("Backend trả về lỗi ${response.code()}."))
+            }
+            Result.success(response.body()?.appointments.orEmpty().map { it.toDomain() })
+        } catch (exc: IOException) {
+            Result.failure(exc)
+        } catch (exc: RuntimeException) {
+            Result.failure(exc)
+        }
+    }
+
+    override suspend fun updateAppointmentStatus(appointmentId: Int, status: String): OperationResult {
+        val auth = session?.authorizationHeader() ?: return OperationResult.Failure("Bạn cần đăng nhập.")
+        if (session?.role != "admin") {
+            return OperationResult.Failure("Chỉ admin được cập nhật trạng thái lịch hẹn.")
+        }
+        return try {
+            val response = api.updateAppointmentStatus(auth, appointmentId, AppointmentStatusUpdateDto(status))
+            if (response.isSuccessful) OperationResult.Success else OperationResult.Failure("Không cập nhật được lịch hẹn.")
+        } catch (_: IOException) {
+            OperationResult.Failure("Không kết nối được backend.")
+        } catch (_: RuntimeException) {
+            OperationResult.Failure("Không xử lý được phản hồi lịch hẹn.")
         }
     }
 
@@ -177,5 +264,31 @@ private fun KbUpdateJobResponseDto.toDomain(): KbUpdateJob {
         note = note,
         status = status,
         createdAt = createdAt,
+        logs = logs,
+        startedAt = startedAt,
+        completedAt = completedAt,
+    )
+}
+
+private fun AppointmentResponseDto.toDomain(): Appointment {
+    return Appointment(
+        id = id,
+        userId = userId,
+        patientName = patientName,
+        phone = phone,
+        department = department,
+        appointmentDate = appointmentDate,
+        reason = reason,
+        status = status,
+        createdAt = createdAt,
+    )
+}
+
+private fun ConversationResponseDto.toDomain(): ConversationSummary {
+    return ConversationSummary(
+        id = id,
+        title = title,
+        createdAt = createdAt,
+        updatedAt = updatedAt,
     )
 }

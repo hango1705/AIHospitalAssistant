@@ -87,6 +87,20 @@ Interactive:
 
 Backend local bọc pipeline RAG hiện có để Android app gọi qua HTTP.
 
+Tạo cấu hình local từ mẫu:
+
+```powershell
+Copy-Item .\.env.example .\.env
+```
+
+Các biến quan trọng:
+
+- `OPENAI_API_KEY`: bắt buộc khi build lại FAISS hoặc chatbot cần gọi LLM.
+- `DATABASE_URL`: mặc định `sqlite:///data/app/app.sqlite3`.
+- `ACCESS_TOKEN_TTL_MINUTES`: thời hạn token đăng nhập, mặc định 480 phút.
+- `PASSWORD_MIN_LENGTH`: tối thiểu 8 ký tự; đăng ký mới phải có cả chữ và số.
+- `DEFAULT_ADMIN_USERNAME`, `DEFAULT_ADMIN_PASSWORD`: tài khoản admin local mặc định đang là `admin/admin`. Khi đóng gói bản gần production, đổi mật khẩu này trong `.env` trước lần chạy DB đầu tiên.
+
 Chạy server:
 
 ```powershell
@@ -113,6 +127,20 @@ Invoke-RestMethod `
 ```
 
 Android emulator dùng base URL `http://10.0.2.2:8000`. Điện thoại thật dùng IP LAN của laptop đang chạy backend.
+
+## 6. Vận hành các tính năng gần production
+
+- Auth: token có thời hạn và logout sẽ thu hồi token server-side. Nếu token hết hạn, app cần đăng nhập lại.
+- User đăng ký mới luôn có role `patient`; admin mặc định được seed từ `.env`.
+- Lịch sử chat: backend lưu theo từng cuộc trò chuyện. Android có thể tạo cuộc trò chuyện mới, chọn lại cuộc trò chuyện cũ và xóa từng cuộc trò chuyện.
+- Đặt lịch khám: user xem lịch của mình; admin xem toàn bộ lịch và đổi trạng thái `pending`, `confirmed`, `cancelled`.
+- Admin cập nhật knowledge base: admin tạo job trong dashboard. Backend chạy pipeline `scripts/build_hospital_corpus.py` rồi `scripts/build_faiss_index.py --reset`, lưu log vào DB và reload assistant cache sau khi thành công.
+
+Backup DB local:
+
+```powershell
+Copy-Item .\data\app\app.sqlite3 ".\data\app\app.backup.sqlite3"
+```
 
 ## Thiết kế khác với form tham khảo
 

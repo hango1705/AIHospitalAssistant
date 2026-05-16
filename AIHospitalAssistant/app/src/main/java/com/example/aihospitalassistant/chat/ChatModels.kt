@@ -18,6 +18,7 @@ data class ChatSource(
 data class ChatAnswer(
     val answer: String,
     val sources: List<ChatSource>,
+    val conversationId: String? = null,
 )
 
 data class UserSession(
@@ -32,6 +33,28 @@ data class KbUpdateJob(
     val note: String,
     val status: String,
     val createdAt: String,
+    val logs: String = "",
+    val startedAt: String? = null,
+    val completedAt: String? = null,
+)
+
+data class Appointment(
+    val id: Int,
+    val userId: Int,
+    val patientName: String,
+    val phone: String,
+    val department: String,
+    val appointmentDate: String,
+    val reason: String,
+    val status: String,
+    val createdAt: String,
+)
+
+data class ConversationSummary(
+    val id: String,
+    val title: String,
+    val createdAt: String,
+    val updatedAt: String,
 )
 
 sealed interface ChatResult {
@@ -62,6 +85,9 @@ data class ChatUiState(
     val operationMessage: String? = null,
     val isAdminMode: Boolean = false,
     val kbJobs: List<KbUpdateJob> = emptyList(),
+    val appointments: List<Appointment> = emptyList(),
+    val conversations: List<ConversationSummary> = emptyList(),
+    val activeConversationId: String? = null,
     val suggestions: List<String> = defaultSuggestions,
 )
 

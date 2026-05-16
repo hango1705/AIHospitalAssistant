@@ -54,3 +54,4 @@ class AnswerResult(BaseModel):
     question: str
     answer: str
     sources: list[RetrievedSource] = Field(default_factory=list)
+    conversation_id: str | None = None

@@ -202,6 +202,19 @@ class ChatViewModelTest {
     }
 
     @Test
+    fun logoutClearsSessionAndCallsRepositoryLogout() = runTest(dispatcher) {
+        val repository = FakeChatRepository(session = UserSession("token", "user@example.com", "User", "patient"))
+        val viewModel = ChatViewModel(repository)
+
+        viewModel.logout()
+        advanceUntilIdle()
+
+        assertEquals(null, viewModel.uiState.value.session)
+        assertTrue(repository.wasLoggedOut)
+    }
+
+
+    @Test
     fun appointmentShowsOperationMessage() = runTest(dispatcher) {
         val repository = FakeChatRepository(session = UserSession("token", "user@example.com", "User", "patient"))
         val viewModel = ChatViewModel(repository)
@@ -211,6 +224,50 @@ class ChatViewModelTest {
 
         assertEquals("Đã gửi yêu cầu đặt lịch khám.", viewModel.uiState.value.operationMessage)
     }
+
+    @Test
+    fun loadAppointmentsUpdatesState() = runTest(dispatcher) {
+        val repository = FakeChatRepository(
+            session = UserSession("token", "user@example.com", "User", "patient"),
+            appointments = listOf(Appointment(1, 2, "Nguyễn Văn A", "0912345678", "Khoa Nhi", "2026-05-20T08:00", "Khám", "pending", "now")),
+        )
+        val viewModel = ChatViewModel(repository)
+        advanceUntilIdle()
+
+        assertEquals("Khoa Nhi", viewModel.uiState.value.appointments.single().department)
+    }
+
+    @Test
+    fun adminCanUpdateAppointmentStatus() = runTest(dispatcher) {
+        val repository = FakeChatRepository(session = UserSession("token", "admin@example.com", "Admin", "admin"))
+        val viewModel = ChatViewModel(repository)
+
+        viewModel.updateAppointmentStatus(1, "confirmed")
+        advanceUntilIdle()
+
+        assertEquals("Đã cập nhật trạng thái lịch hẹn.", viewModel.uiState.value.operationMessage)
+        assertEquals(1 to "confirmed", repository.lastStatusUpdate)
+    }
+
+    @Test
+    fun serverConversationIdBecomesActiveConversation() = runTest(dispatcher) {
+        val repository = FakeChatRepository(
+            session = UserSession("token", "user@example.com", "User", "patient"),
+            results = ArrayDeque(
+                listOf(
+                    ChatResult.Success(ChatAnswer("OK", emptyList(), conversationId = "conv-1")),
+                ),
+            ),
+        )
+        val viewModel = ChatViewModel(repository)
+
+        viewModel.sendQuestion("Bệnh viện A ở đâu?")
+        advanceUntilIdle()
+
+        assertEquals("conv-1", viewModel.uiState.value.activeConversationId)
+    }
+
+
 
     @Test
     fun adminModeLoadsKbJobs() = runTest(dispatcher) {
@@ -231,11 +288,13 @@ class ChatViewModelTest {
 private data class ChatRequestCall(
     val question: String,
     val contextHint: String?,
+    val conversationId: String? = null,
 )
 
 private class FakeChatRepository(
     private var session: UserSession? = null,
     private val kbJobs: List<KbUpdateJob> = emptyList(),
+    private val appointments: List<Appointment> = emptyList(),
     private val results: ArrayDeque<ChatResult> = ArrayDeque(
         listOf(
             ChatResult.Success(
@@ -254,6 +313,8 @@ private class FakeChatRepository(
     ),
 ) : ChatRepository {
     val calls = mutableListOf<ChatRequestCall>()
+    var wasLoggedOut = false
+    var lastStatusUpdate: Pair<Int, String>? = null
 
     override fun currentSession(): UserSession? = session
 
@@ -267,12 +328,14 @@ private class FakeChatRepository(
         return OperationResult.Success
     }
 
-    override fun logout() {
+    override suspend fun logout(): OperationResult {
+        wasLoggedOut = true
         session = null
+        return OperationResult.Success
     }
 
-    override suspend fun ask(question: String, contextHint: String?): ChatResult {
-        calls += ChatRequestCall(question, contextHint)
+    override suspend fun ask(question: String, contextHint: String?, conversationId: String?): ChatResult {
+        calls += ChatRequestCall(question, contextHint, conversationId)
         return if (results.isEmpty()) {
             ChatResult.Success(ChatAnswer(answer = "OK", sources = emptyList()))
         } else {
@@ -284,6 +347,12 @@ private class FakeChatRepository(
 
     override suspend fun clearServerHistory(): OperationResult = OperationResult.Success
 
+    override suspend fun loadConversations(): Result<List<ConversationSummary>> = Result.success(emptyList())
+
+    override suspend fun loadConversationMessages(conversationId: String): Result<List<ChatMessage>> = Result.success(emptyList())
+
+    override suspend fun deleteConversation(conversationId: String): OperationResult = OperationResult.Success
+
     override suspend fun createAppointment(
         patientName: String,
         phone: String,
@@ -291,6 +360,13 @@ private class FakeChatRepository(
         appointmentDate: String,
         reason: String,
     ): OperationResult = OperationResult.Success
+
+    override suspend fun loadAppointments(): Result<List<Appointment>> = Result.success(appointments)
+
+    override suspend fun updateAppointmentStatus(appointmentId: Int, status: String): OperationResult {
+        lastStatusUpdate = appointmentId to status
+        return OperationResult.Success
+    }
 
     override suspend fun requestKbUpdate(note: String): OperationResult = OperationResult.Success
 

@@ -52,3 +52,25 @@ def load_env_file(env_path: Path | None = None) -> None:
 
 def env_or_default(name: str, default: str) -> str:
     return os.getenv(name, default).strip()
+
+
+def env_int_or_default(name: str, default: int) -> int:
+    raw_value = os.getenv(name)
+    if raw_value is None or not raw_value.strip():
+        return default
+    try:
+        return int(raw_value.strip())
+    except ValueError:
+        return default
+
+
+def database_path_from_env() -> Path:
+    value = env_or_default("DATABASE_URL", "sqlite:///data/app/app.sqlite3")
+    if value.startswith("sqlite:///"):
+        raw_path = value.removeprefix("sqlite:///")
+    elif value.startswith("sqlite://"):
+        raw_path = value.removeprefix("sqlite://")
+    else:
+        raw_path = value
+    path = Path(raw_path)
+    return path if path.is_absolute() else ROOT_DIR / path

@@ -29,7 +29,9 @@ class ChatViewModel(
 
     init {
         if (repository.currentSession() != null) {
+            loadConversations()
             loadServerHistory()
+            loadAppointments()
         }
     }
 
@@ -59,6 +61,8 @@ class ChatViewModel(
                         )
                     }
                     loadServerHistory()
+                    loadConversations()
+                    loadAppointments()
                     if (session?.role == "admin") {
                         loadKbUpdateJobs()
                     }
@@ -77,21 +81,26 @@ class ChatViewModel(
     }
 
     fun logout() {
-        repository.logout()
-        historyStore.clear()
-        latestTopicQuestion = null
-        lastFailedQuestion = null
-        _uiState.update {
-            it.copy(
-                messages = emptyList(),
-                session = null,
-                errorMessage = null,
-                authErrorMessage = null,
-                operationMessage = null,
+        viewModelScope.launch {
+            repository.logout()
+            historyStore.clear()
+            latestTopicQuestion = null
+            lastFailedQuestion = null
+            _uiState.update {
+                it.copy(
+                    messages = emptyList(),
+                    session = null,
+                    errorMessage = null,
+                    authErrorMessage = null,
+                    operationMessage = null,
                 isAdminMode = false,
                 kbJobs = emptyList(),
+                appointments = emptyList(),
+                conversations = emptyList(),
+                activeConversationId = null,
             )
         }
+    }
     }
 
     fun showChat() {
@@ -104,6 +113,7 @@ class ChatViewModel(
         }
         _uiState.update { it.copy(isAdminMode = true) }
         loadKbUpdateJobs()
+        loadAppointments()
     }
 
     private fun loadServerHistory() {
@@ -116,6 +126,72 @@ class ChatViewModel(
                         _uiState.update { it.copy(messages = messages) }
                     }
                 }
+        }
+    }
+
+    fun loadConversations() {
+        if (_uiState.value.session == null) {
+            return
+        }
+        viewModelScope.launch {
+            repository.loadConversations()
+                .onSuccess { conversations ->
+                    _uiState.update { it.copy(conversations = conversations) }
+                }
+        }
+    }
+
+    fun startNewConversation() {
+        historyStore.clear()
+        latestTopicQuestion = null
+        lastFailedQuestion = null
+        _uiState.update {
+            it.copy(
+                messages = emptyList(),
+                activeConversationId = null,
+                errorMessage = null,
+                operationMessage = null,
+            )
+        }
+    }
+
+    fun selectConversation(conversationId: String) {
+        viewModelScope.launch {
+            repository.loadConversationMessages(conversationId)
+                .onSuccess { messages ->
+                    latestTopicQuestion = topicAnchorFrom(messages)
+                    historyStore.saveMessages(messages)
+                    _uiState.update {
+                        it.copy(
+                            messages = messages,
+                            activeConversationId = conversationId,
+                            errorMessage = null,
+                        )
+                    }
+                }
+                .onFailure { error ->
+                    _uiState.update { it.copy(operationMessage = error.message ?: "Không tải được cuộc trò chuyện.") }
+                }
+        }
+    }
+
+    fun deleteConversation(conversationId: String) {
+        viewModelScope.launch {
+            val result = repository.deleteConversation(conversationId)
+            if (result == OperationResult.Success && _uiState.value.activeConversationId == conversationId) {
+                historyStore.clear()
+                latestTopicQuestion = null
+                _uiState.update { it.copy(messages = emptyList(), activeConversationId = null) }
+            }
+            _uiState.update {
+                it.copy(
+                    operationMessage = when (result) {
+                        OperationResult.Success -> "Đã xóa cuộc trò chuyện."
+                        is OperationResult.Failure -> result.message
+                    },
+                )
+            }
+            loadConversations()
         }
     }
 
@@ -163,11 +239,12 @@ class ChatViewModel(
         }
 
         viewModelScope.launch {
-            when (val result = repository.ask(question, contextHint)) {
+            when (val result = repository.ask(question, contextHint, _uiState.value.activeConversationId)) {
                 is ChatResult.Success -> {
                     if (!isFollowUpQuestion(question)) {
                         latestTopicQuestion = contextAnchorFor(question)
                     }
+                    val conversationId = result.answer.conversationId ?: _uiState.value.activeConversationId
                     _uiState.update { state ->
                         val updatedMessages = state.messages + ChatMessage(
                             id = nextMessageId++,
@@ -178,10 +255,12 @@ class ChatViewModel(
                         persistMessages(updatedMessages)
                         state.copy(
                             messages = updatedMessages,
+                            activeConversationId = conversationId,
                             isLoading = false,
                             errorMessage = null,
                         )
                     }
+                    loadConversations()
                 }
 
                 is ChatResult.Failure -> {
@@ -214,6 +293,8 @@ class ChatViewModel(
             _uiState.update {
                 it.copy(
                     messages = emptyList(),
+                    conversations = emptyList(),
+                    activeConversationId = null,
                     isLoading = false,
                     errorMessage = null,
                     operationMessage = "Đã xóa lịch sử chat.",
@@ -232,6 +313,41 @@ class ChatViewModel(
                         is OperationResult.Failure -> result.message
                     },
                 )
+            }
+            if (result == OperationResult.Success) {
+                loadAppointments()
+            }
+        }
+    }
+
+    fun loadAppointments() {
+        if (_uiState.value.session == null) {
+            return
+        }
+        viewModelScope.launch {
+            repository.loadAppointments()
+                .onSuccess { appointments ->
+                    _uiState.update { it.copy(appointments = appointments) }
+                }
+                .onFailure { error ->
+                    _uiState.update { it.copy(operationMessage = error.message ?: "Không tải được danh sách lịch hẹn.") }
+                }
+        }
+    }
+
+    fun updateAppointmentStatus(appointmentId: Int, status: String) {
+        viewModelScope.launch {
+            val result = repository.updateAppointmentStatus(appointmentId, status)
+            _uiState.update {
+                it.copy(
+                    operationMessage = when (result) {
+                        OperationResult.Success -> "Đã cập nhật trạng thái lịch hẹn."
+                        is OperationResult.Failure -> result.message
+                    },
+                )
+            }
+            if (result == OperationResult.Success) {
+                loadAppointments()
             }
         }
     }
