@@ -65,7 +65,7 @@ class ChatViewModel(
             when (val result = repository.ask(question, contextHint)) {
                 is ChatResult.Success -> {
                     if (!isFollowUpQuestion(question)) {
-                        latestTopicQuestion = question
+                        latestTopicQuestion = contextAnchorFor(question)
                     }
                     _uiState.update { state ->
                         state.copy(
@@ -147,10 +147,33 @@ class ChatViewModel(
         if (referentialMarkers.any { it in padded }) {
             return true
         }
+        if (tokens.size <= 6 && listOf("truong khoa", "truong phong", "phu trach").any { it in normalized }) {
+            return true
+        }
         if (tokens.size <= 8 && shortFollowUpPrefixes.any { normalized.startsWith(it) }) {
             return explicitTopicMarkers.none { it in normalized }
         }
         return tokens.size <= 6 && explicitTopicMarkers.none { it in normalized }
+    }
+
+    private fun contextAnchorFor(question: String): String {
+        val trimmed = question.trim()
+        val patterns = listOf(
+            Regex("""\b(Khoa\s+.+?)(?=\s+có|\s+là|\s+ở|\s+hiện|\s+gồm|\?|$)""", RegexOption.IGNORE_CASE),
+            Regex("""\b(Phòng\s+.+?)(?=\s+có|\s+là|\s+ở|\s+hiện|\s+gồm|\?|$)""", RegexOption.IGNORE_CASE),
+            Regex("""\b(Trung tâm\s+.+?)(?=\s+có|\s+là|\s+ở|\s+hiện|\s+gồm|\?|$)""", RegexOption.IGNORE_CASE),
+            Regex("""\b(Đơn nguyên\s+.+?)(?=\s+có|\s+là|\s+ở|\s+hiện|\s+gồm|\?|$)""", RegexOption.IGNORE_CASE),
+        )
+        for (pattern in patterns) {
+            val anchor = pattern.find(trimmed)
+                ?.groupValues
+                ?.getOrNull(1)
+                ?.trim(' ', '.', ',', '?', '!')
+            if (!anchor.isNullOrBlank()) {
+                return anchor
+            }
+        }
+        return trimmed
     }
 
     class Factory(

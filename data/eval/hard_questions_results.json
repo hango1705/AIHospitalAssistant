@@ -1,0 +1,1451 @@
+[
+  {
+    "category": "hospital_profile_short",
+    "question": "Địa chỉ bệnh viện",
+    "expected_terms": [
+      "quang trung"
+    ],
+    "index": 1,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 3338,
+    "answer": "Cơ sở tri thức hiện có địa chỉ của Bệnh viện A Thái Nguyên trên đường Quang Trung, thành phố Thái Nguyên. Nguồn đang ghi theo hai cách: \"Đường Quang Trung, P Thịnh Đán, TP Thái Nguyên\" và \"Đường Quang Trung, P Quyết Thắng, T Thái Nguyên\" [Nguon 1][Nguon 2].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Liên Hệ",
+        "locator": "https://benhvienathainguyen.com.vn/contact",
+        "source_url": "https://benhvienathainguyen.com.vn/contact",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-contact-95131c567b::chunk-001"
+      },
+      {
+        "source_id": "Nguon 2",
+        "title": "Giới Thiệu Chung",
+        "locator": "https://benhvienathainguyen.com.vn/page/2/gioi-thieu-chung",
+        "source_url": "https://benhvienathainguyen.com.vn/page/2/gioi-thieu-chung",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-page-96f1d1cb1a::chunk-021"
+      }
+    ]
+  },
+  {
+    "category": "hospital_profile_short",
+    "question": "Số điện thoại liên hệ",
+    "expected_terms": [
+      "0280",
+      "0208"
+    ],
+    "index": 2,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 1608,
+    "answer": "Bệnh viện A Thái Nguyên có số điện thoại liên hệ là 02803846112 và 02083846112 [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Liên Hệ",
+        "locator": "https://benhvienathainguyen.com.vn/contact",
+        "source_url": "https://benhvienathainguyen.com.vn/contact",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-contact-95131c567b::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "hospital_profile_short",
+    "question": "Email bệnh viện",
+    "expected_terms": [
+      "gmail"
+    ],
+    "index": 3,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 2284,
+    "answer": "Email liên hệ của Bệnh viện A Thái Nguyên là bvathainguyen@gmail.com [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Liên Hệ",
+        "locator": "https://benhvienathainguyen.com.vn/contact",
+        "source_url": "https://benhvienathainguyen.com.vn/contact",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-contact-95131c567b::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "hospital_profile_short",
+    "question": "Bệnh viện nằm ở phường nào?",
+    "expected_terms": [
+      "thinh dan"
+    ],
+    "index": 4,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 2895,
+    "answer": "Bệnh viện A Thái Nguyên nằm ở phường Thịnh Đán, thành phố Thái Nguyên, tỉnh Thái Nguyên [Nguon 4].",
+    "sources": [
+      {
+        "source_id": "Nguon 4",
+        "title": "Giới Thiệu Chung",
+        "locator": "https://benhvienathainguyen.com.vn/page/2/gioi-thieu-chung",
+        "source_url": "https://benhvienathainguyen.com.vn/page/2/gioi-thieu-chung",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-page-96f1d1cb1a::chunk-015"
+      }
+    ]
+  },
+  {
+    "category": "hospital_profile_short",
+    "question": "Thông tin liên hệ bệnh viện A",
+    "expected_terms": [
+      "dien thoai",
+      "email"
+    ],
+    "index": 5,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 1348,
+    "answer": "Bệnh viện A Thái Nguyên có số điện thoại liên hệ là 02803846112 và 02083846112 [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Liên Hệ",
+        "locator": "https://benhvienathainguyen.com.vn/contact",
+        "source_url": "https://benhvienathainguyen.com.vn/contact",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-contact-95131c567b::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "process",
+    "question": "Quy trình khám bệnh gồm những bước nào?",
+    "expected_terms": [
+      "buoc"
+    ],
+    "index": 6,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 4964,
+    "answer": "Quy trình khám bệnh tại Bệnh viện A Thái Nguyên bao gồm các bước sau:\n\n1. Lấy số thứ tự đăng ký.\n2. Đăng ký sổ khám.\n3. Trình thẻ BHYT, giấy giới thiệu, đăng ký sổ khám.\n4. Vào phòng khám, nộp tiền.\n5. Chờ khám theo số thứ tự.\n6. Đóng tiền các dịch vụ cận lâm sàng.\n7. Thực hiện cận lâm sàng.\n8. Lấy kết quả quay về phòng khám.\n9. Duyệt toa BHYT.\n10. Thanh toán, nhận lại thẻ BHYT.\n11. Lĩnh thuốc [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Quy Trình Khám Bệnh",
+        "locator": "https://benhvienathainguyen.com.vn/page/15/quy-trinh-kham-benh",
+        "source_url": "https://benhvienathainguyen.com.vn/page/15/quy-trinh-kham-benh",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-page-dea09a5e1e::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "process",
+    "question": "Khám sức khỏe làm theo quy trình nào?",
+    "expected_terms": [
+      "kham suc khoe"
+    ],
+    "index": 7,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 2983,
+    "answer": "Quy trình khám sức khỏe bao gồm các bước sau:\n\n1. Bệnh nhân lấy số thứ tự đăng ký.\n2. Đăng ký khám sức khỏe.\n3. Thực hiện cận lâm sàng.\n4. Khám tại các bàn khám chuyên khoa.\n5. Nhập khoa.\n6. Nhận kết luận của phòng khám sức khỏe [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Quy Trình Khám Sức Khỏe",
+        "locator": "https://benhvienathainguyen.com.vn/page/16/quy-trinh-kham-suc-khoe",
+        "source_url": "https://benhvienathainguyen.com.vn/page/16/quy-trinh-kham-suc-khoe",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-page-08db6ecdbb::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "process",
+    "question": "Quy trình khám nội trú tại bệnh viện ra sao?",
+    "expected_terms": [
+      "noi tru"
+    ],
+    "index": 8,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 3443,
+    "answer": "Quy trình khám nội trú tại bệnh viện bao gồm các bước sau:\n\n1. Bệnh nhân phòng khám\n2. Nhập khoa\n3. Dự trù và hoàn trả hao phí theo bệnh nhân\n4. Dự trù và hoàn trả hao phí theo khoa phòng\n5. Tạm ứng viện phí\n6. Công nợ nội trú\n7. Chỉ định cận lâm sàng, phẫu thuật thủ thuật\n8. Thực hiện cận lâm sàng\n9. Xuất khoa\n10. Các xử trí khác\n11. Quá trình nội trú\n12. Kết thúc [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Quy Trình Khám Nội Trú",
+        "locator": "https://benhvienathainguyen.com.vn/page/17/quy-trinh-kham-noi-tru",
+        "source_url": "https://benhvienathainguyen.com.vn/page/17/quy-trinh-kham-noi-tru",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-page-6448f363ec::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "process",
+    "question": "Người bệnh trước khi khám cần làm thủ tục gì?",
+    "expected_terms": [
+      "kham"
+    ],
+    "index": 9,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 3594,
+    "answer": "Trước khi khám, người bệnh cần thực hiện các thủ tục sau:\n\n1. Lấy số thứ tự đăng ký.\n2. Đăng ký sổ khám.\n3. Trình thẻ BHYT, giấy giới thiệu (nếu có).\n4. Nộp tiền tại phòng khám.\n5. Chờ khám theo số thứ tự.\n\nSau khi khám, nếu cần thực hiện các dịch vụ cận lâm sàng, người bệnh sẽ phải đóng tiền cho các dịch vụ này và thực hiện các xét nghiệm cần thiết [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Quy Trình Khám Bệnh",
+        "locator": "https://benhvienathainguyen.com.vn/page/15/quy-trinh-kham-benh",
+        "source_url": "https://benhvienathainguyen.com.vn/page/15/quy-trinh-kham-benh",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-page-dea09a5e1e::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "department",
+    "question": "Khoa Giải phẫu bệnh làm nhiệm vụ gì?",
+    "expected_terms": [
+      "giai phau benh"
+    ],
+    "index": 10,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 2514,
+    "answer": "Khoa Giải phẫu bệnh có nhiệm vụ thực hiện các xét nghiệm vi thể mô bệnh học và tế bào học phục vụ chẩn đoán cho người bệnh khám và điều trị, cũng như phục vụ nghiên cứu khoa học. Khoa còn tư vấn và thực hiện các xét nghiệm tầm soát, phát hiện sớm tiền ung thư và ung thư [Nguon 4].",
+    "sources": [
+      {
+        "source_id": "Nguon 4",
+        "title": "Khoa Giải Phẫu Bệnh",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/22/khoa-giai-phau-benh",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/22/khoa-giai-phau-benh",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-f20c8244ed::chunk-004"
+      }
+    ]
+  },
+  {
+    "category": "department",
+    "question": "Khoa Kiểm soát nhiễm khuẩn có thông tin gì?",
+    "expected_terms": [
+      "kiem soat nhiem khuan"
+    ],
+    "index": 11,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 4710,
+    "answer": "Khoa Kiểm soát nhiễm khuẩn tại Bệnh viện A Thái Nguyên được thành lập từ năm 1999, với chức năng giám sát vệ sinh môi trường, quản lý chất thải y tế, xử lý dụng cụ, giặt là hấp sấy và cung cấp dụng cụ khử khuẩn, tiệt khuẩn cho toàn bệnh viện. Khoa có đội ngũ chuyên môn đảm bảo năng lực về thực hành, đào tạo, chỉ đạo tuyến và nghiên cứu khoa học trong lĩnh vực kiểm soát nhiễm khuẩn. Khoa cũng thực hiện các nhiệm vụ như giám sát và xử trí kịp thời các trường hợp nhiễm khuẩn bệnh viện, đào tạo nhân viên y tế, và xây dựng quy trình kiểm soát nhiễm khuẩn [Nguon 3], [Nguon 4], [Nguon 5], [Nguon 6].",
+    "sources": [
+      {
+        "source_id": "Nguon 3",
+        "title": "Khoa Kiểm Soát Nhiễm Khuẩn",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/20/khoa-kiem-soat-nhiem-khuan",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/20/khoa-kiem-soat-nhiem-khuan",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-b74f748171::chunk-003"
+      },
+      {
+        "source_id": "Nguon 4",
+        "title": "Khoa Kiểm Soát Nhiễm Khuẩn",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/20/khoa-kiem-soat-nhiem-khuan",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/20/khoa-kiem-soat-nhiem-khuan",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-b74f748171::chunk-004"
+      },
+      {
+        "source_id": "Nguon 5",
+        "title": "Khoa Kiểm Soát Nhiễm Khuẩn",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/20/khoa-kiem-soat-nhiem-khuan",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/20/khoa-kiem-soat-nhiem-khuan",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-b74f748171::chunk-005"
+      },
+      {
+        "source_id": "Nguon 6",
+        "title": "Khoa Kiểm Soát Nhiễm Khuẩn",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/20/khoa-kiem-soat-nhiem-khuan",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/20/khoa-kiem-soat-nhiem-khuan",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-b74f748171::chunk-006"
+      }
+    ]
+  },
+  {
+    "category": "department",
+    "question": "Phòng Vật tư TBYT phụ trách gì?",
+    "expected_terms": [
+      "vat tu"
+    ],
+    "index": 12,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 4690,
+    "answer": "Phòng Vật tư - Thiết bị y tế của Bệnh viện A Thái Nguyên chịu trách nhiệm về toàn bộ công tác vật tư, thiết bị y tế trong bệnh viện. Phòng này thực hiện kiểm tra, kiểm định chất lượng thiết bị y tế, quản lý tập trung thiết bị, bảo trì định kỳ trang thiết bị y tế và chủ động sản xuất một số trang thiết bị thiết yếu để tiết kiệm ngân sách cho đơn vị [Nguon 1], [Nguon 3], [Nguon 4].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Phòng Vật Tư Tbyt",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/26/phong-vat-tu-tbyt",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/26/phong-vat-tu-tbyt",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-198e220098::chunk-001"
+      },
+      {
+        "source_id": "Nguon 3",
+        "title": "Phòng Vật Tư Tbyt",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/26/phong-vat-tu-tbyt",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/26/phong-vat-tu-tbyt",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-198e220098::chunk-003"
+      },
+      {
+        "source_id": "Nguon 4",
+        "title": "Phòng Vật Tư Tbyt",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/26/phong-vat-tu-tbyt",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/26/phong-vat-tu-tbyt",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-198e220098::chunk-004"
+      }
+    ]
+  },
+  {
+    "category": "department",
+    "question": "Phòng Quản lý chất lượng bệnh viện có thông tin liên hệ không?",
+    "expected_terms": [
+      "quan ly chat luong"
+    ],
+    "index": 13,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 43,
+    "answer": "Số điện thoại của Phòng Quản Lý Chất Lượng Bệnh Viện là 02083846112 [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Phòng Quản Lý Chất Lượng Bệnh Viện",
+        "locator": "https://benhvienathainguyen.com.vn/his/contact/29/phong-quan-ly-chat-luong-benh-vien",
+        "source_url": "https://benhvienathainguyen.com.vn/his/contact/29/phong-quan-ly-chat-luong-benh-vien",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department_contact-10d1b6ab14::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "department",
+    "question": "Đơn nguyên nội soi ở bệnh viện có thông tin gì?",
+    "expected_terms": [
+      "noi soi"
+    ],
+    "index": 14,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 2073,
+    "answer": "Đơn Nguyên Nội Soi tại Bệnh viện A Thái Nguyên có thông tin như sau:\n\n- Giới thiệu: abc [Nguon 1].\n- Số điện thoại liên hệ: (0208) 3846112 [Nguon 2].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Đơn Nguyên Nội Soi",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/2/don-nguyen-noi-soi",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/2/don-nguyen-noi-soi",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-9a36fbc4b4::chunk-001"
+      },
+      {
+        "source_id": "Nguon 2",
+        "title": "Đơn Nguyên Nội Soi",
+        "locator": "https://benhvienathainguyen.com.vn/his/contact/2/don-nguyen-noi-soi",
+        "source_url": "https://benhvienathainguyen.com.vn/his/contact/2/don-nguyen-noi-soi",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department_contact-c6210ea677::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "department",
+    "question": "Trung tâm sàng lọc chẩn đoán trước sinh và sơ sinh",
+    "expected_terms": [
+      "sang loc"
+    ],
+    "index": 15,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 2926,
+    "answer": "Trung tâm Sàng lọc chẩn đoán trước sinh và sơ sinh tại Bệnh viện A Thái Nguyên cung cấp dịch vụ sàng lọc và chẩn đoán cho các trường hợp trước sinh và sơ sinh. Bạn có thể liên hệ với trung tâm qua số điện thoại (0208) 3846112 để biết thêm thông tin chi tiết [Nguon 1], [Nguon 2].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Trung Tâm Sàng Lọc Chẩn Đoán Trước Sinh Và Sơ Sinh",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/40/trung-tam-sang-loc-chan-doan-truoc-sinh-va-so-sinh",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/40/trung-tam-sang-loc-chan-doan-truoc-sinh-va-so-sinh",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-8895243fe3::chunk-001"
+      },
+      {
+        "source_id": "Nguon 2",
+        "title": "Trung Tâm Sàng Lọc Chẩn Đoán Trước Sinh Và Sơ Sinh",
+        "locator": "https://benhvienathainguyen.com.vn/his/contact/40/trung-tam-sang-loc-chan-doan-truoc-sinh-va-so-sinh",
+        "source_url": "https://benhvienathainguyen.com.vn/his/contact/40/trung-tam-sang-loc-chan-doan-truoc-sinh-va-so-sinh",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department_contact-97b18be3ba::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "department",
+    "question": "Khoa Hỗ trợ sinh sản có chức năng gì?",
+    "expected_terms": [
+      "ho tro sinh san"
+    ],
+    "index": 16,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 3630,
+    "answer": "Khoa Hỗ trợ sinh sản có chức năng khám, chẩn đoán, tư vấn, điều trị các trường hợp vô sinh, hiếm muộn, và thực hiện tất cả các kỹ thuật hỗ trợ sinh sản hiện đang áp dụng trong nước và trên thế giới. Ngoài ra, khoa còn hỗ trợ các cặp vợ chồng mang bệnh lý di truyền hoặc có bất thường về gen, nhiễm sắc thể để giúp họ sinh con khỏe mạnh theo phương pháp khoa học, đồng thời tham gia nghiên cứu khoa học và đào tạo trong lĩnh vực hỗ trợ sinh sản [Nguon 3], [Nguon 4].",
+    "sources": [
+      {
+        "source_id": "Nguon 3",
+        "title": "Khoa Hỗ Trợ Sinh Sản",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/15/khoa-ho-tro-sinh-san",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/15/khoa-ho-tro-sinh-san",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-7cac5bf971::chunk-003"
+      },
+      {
+        "source_id": "Nguon 4",
+        "title": "Khoa Hỗ Trợ Sinh Sản",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/15/khoa-ho-tro-sinh-san",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/15/khoa-ho-tro-sinh-san",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-7cac5bf971::chunk-004"
+      }
+    ]
+  },
+  {
+    "category": "department",
+    "question": "Khoa Huyết học truyền máu",
+    "expected_terms": [
+      "huyet hoc"
+    ],
+    "index": 17,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 4303,
+    "answer": "Khoa Huyết học Truyền máu của Bệnh viện A Thái Nguyên có địa chỉ tại Tầng 3, nhà B1, đường Quang Trung, phường Thịnh Đán, TP Thái Nguyên, tỉnh Thái Nguyên. Bạn có thể liên hệ qua số điện thoại 0826.534.222 hoặc email hhtmbva@gmail.com [Nguon 2]. \n\nKhoa có chức năng thực hiện các xét nghiệm Huyết học, Đông máu và Truyền máu phục vụ công tác khám chữa bệnh, nghiên cứu khoa học, đào tạo và tham gia chỉ đạo tuyến của bệnh viện [Nguon 4].",
+    "sources": [
+      {
+        "source_id": "Nguon 2",
+        "title": "Khoa Huyết Học Truyền Máu",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/18/khoa-huyet-hoc-truyen-mau",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/18/khoa-huyet-hoc-truyen-mau",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-4701a35d4c::chunk-002"
+      },
+      {
+        "source_id": "Nguon 4",
+        "title": "Khoa Huyết Học Truyền Máu",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/18/khoa-huyet-hoc-truyen-mau",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/18/khoa-huyet-hoc-truyen-mau",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-4701a35d4c::chunk-004"
+      }
+    ]
+  },
+  {
+    "category": "department",
+    "question": "Khoa Sinh hóa vi sinh",
+    "expected_terms": [
+      "sinh hoa",
+      "vi sinh"
+    ],
+    "index": 18,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 4400,
+    "answer": "Khoa Sinh Hóa Vi Sinh của Bệnh viện A Thái Nguyên được thành lập từ ngày 31 tháng 12 năm 1975, tiền thân là khoa Xét nghiệm chung. Khoa chuyên cung cấp các dịch vụ xét nghiệm chuyên ngành Sinh hóa, Miễn dịch, Vi sinh, và Sinh học phân tử, phục vụ cho việc khám, chẩn đoán và điều trị. Khoa hiện có 6 cán bộ nhân viên, trong đó có 4 bác sĩ và nhiều nhân viên có trình độ chuyên môn khác [Nguon 4].\n\nThông tin liên hệ của khoa:\n- Điện thoại: 08882284663, 0888228466\n- Email: shvsbva@gmail.com [Nguon 1], [Nguon 2].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Khoa Sinh Hóa Vi Sinh",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/17/khoa-sinh-hoa-vi-sinh",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/17/khoa-sinh-hoa-vi-sinh",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-7f49fcd5fd::chunk-001"
+      },
+      {
+        "source_id": "Nguon 2",
+        "title": "Khoa Sinh Hóa Vi Sinh",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/17/khoa-sinh-hoa-vi-sinh",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/17/khoa-sinh-hoa-vi-sinh",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-7f49fcd5fd::chunk-002"
+      },
+      {
+        "source_id": "Nguon 4",
+        "title": "Khoa Sinh Hóa Vi Sinh",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/17/khoa-sinh-hoa-vi-sinh",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/17/khoa-sinh-hoa-vi-sinh",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-7f49fcd5fd::chunk-004"
+      }
+    ]
+  },
+  {
+    "category": "department",
+    "question": "Khoa Dinh dưỡng",
+    "expected_terms": [
+      "dinh duong"
+    ],
+    "index": 19,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 1435,
+    "answer": "Khoa Dinh Dưỡng của Bệnh viện A Thái Nguyên có thông tin liên hệ là số điện thoại (0208) 3846112 [Nguon 2].",
+    "sources": [
+      {
+        "source_id": "Nguon 2",
+        "title": "Khoa Dinh Dưỡng",
+        "locator": "https://benhvienathainguyen.com.vn/his/contact/39/khoa-dinh-duong",
+        "source_url": "https://benhvienathainguyen.com.vn/his/contact/39/khoa-dinh-duong",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department_contact-6f249e3d43::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "department",
+    "question": "Phòng Công tác xã hội",
+    "expected_terms": [
+      "cong tac xa hoi"
+    ],
+    "index": 20,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 3877,
+    "answer": "Phòng Công tác xã hội (CTXH) Bệnh viện A Thái Nguyên được thành lập vào tháng 04 năm 2016. Phòng có chức năng hỗ trợ, tư vấn giải quyết các vấn đề về công tác xã hội cho người bệnh và người nhà trong quá trình khám chữa bệnh, thông tin, truyền thông các hoạt động của bệnh viện, vận động tiếp nhận tài trợ, và hỗ trợ nhân viên y tế [Nguon 4], [Nguon 5]. \n\nThông tin liên hệ của phòng là điện thoại: 0889 758 758 [Nguon 2].",
+    "sources": [
+      {
+        "source_id": "Nguon 2",
+        "title": "Phòng Công Tác Xã Hội",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/28/phong-cong-tac-xa-hoi",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/28/phong-cong-tac-xa-hoi",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-64bac8c5dd::chunk-002"
+      },
+      {
+        "source_id": "Nguon 4",
+        "title": "Phòng Công Tác Xã Hội",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/28/phong-cong-tac-xa-hoi",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/28/phong-cong-tac-xa-hoi",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-64bac8c5dd::chunk-004"
+      },
+      {
+        "source_id": "Nguon 5",
+        "title": "Phòng Công Tác Xã Hội",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/28/phong-cong-tac-xa-hoi",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/28/phong-cong-tac-xa-hoi",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-64bac8c5dd::chunk-005"
+      }
+    ]
+  },
+  {
+    "category": "terse_domain",
+    "question": "Khoa Nhi",
+    "expected_terms": [
+      "khoa nhi"
+    ],
+    "index": 21,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 5790,
+    "answer": "Khoa Nhi của Bệnh viện A Thái Nguyên được thành lập từ năm 1965 và là một trong những khoa nòng cốt của bệnh viện. Khoa có 36 phòng bệnh, trong đó có 16 phòng điều trị chất lượng cao, với trên 156 giường bệnh đầy đủ tiện nghi và trang thiết bị hiện đại phục vụ cho chẩn đoán, chăm sóc và điều trị bệnh nhi. Trưởng khoa là BSCK I Nguyễn Thị Yến và điều dưỡng trưởng là CNĐD Trương Thị Thanh [Nguon 2].\n\nKhoa Nhi hiện đang đảm nhiệm 3 phòng khám: phòng khám Nhi, phòng khám dinh dưỡng Nhi và phòng khám nội tiết. Khoa có đội ngũ cán bộ nhân viên gồm 14 bác sĩ và 28 điều dưỡng [Nguon 3]. \n\nChức năng của khoa bao gồm khám và điều trị tất cả các bệnh lý từ sơ sinh đến nội nhi cho trẻ em từ ngay sau đẻ đến đủ 16 tuổi, đồng thời tham gia đào tạo và nghiên cứu khoa học [Nguon 4].",
+    "sources": [
+      {
+        "source_id": "Nguon 2",
+        "title": "Khoa Nhi",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/10/khoa-nhi",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/10/khoa-nhi",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-28aa9c4090::chunk-002"
+      },
+      {
+        "source_id": "Nguon 3",
+        "title": "Khoa Nhi",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/10/khoa-nhi",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/10/khoa-nhi",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-28aa9c4090::chunk-003"
+      },
+      {
+        "source_id": "Nguon 4",
+        "title": "Khoa Nhi",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/10/khoa-nhi",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/10/khoa-nhi",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-28aa9c4090::chunk-004"
+      }
+    ]
+  },
+  {
+    "category": "terse_domain",
+    "question": "Khoa Phụ",
+    "expected_terms": [
+      "khoa phu"
+    ],
+    "index": 22,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 3645,
+    "answer": "Khoa Phụ của Bệnh viện A Thái Nguyên được thành lập từ tháng 05 năm 2020, tách ra từ khoa Phụ Sản và chính thức hoạt động từ ngày 10 tháng 06 năm 2021. Khoa có chức năng khám, tư vấn, điều trị các bệnh lý phụ khoa, các vấn đề liên quan đến thai nghén và kế hoạch hóa gia đình. Khoa làm việc tất cả các ngày trong tuần (24/7) và có số điện thoại liên hệ là 0888.385.229 [Nguon 2].",
+    "sources": [
+      {
+        "source_id": "Nguon 2",
+        "title": "Khoa Phụ",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/37/khoa-phu",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/37/khoa-phu",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-9924732992::chunk-002"
+      }
+    ]
+  },
+  {
+    "category": "terse_domain",
+    "question": "Răng hàm mặt",
+    "expected_terms": [
+      "rang ham mat"
+    ],
+    "index": 23,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 2342,
+    "answer": "Khoa Răng Hàm Mặt của Bệnh viện A Thái Nguyên có số điện thoại liên hệ là (0208) 3846112 [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Khoa Răng Hàm Mặt",
+        "locator": "https://benhvienathainguyen.com.vn/his/contact/35/khoa-rang-ham-mat",
+        "source_url": "https://benhvienathainguyen.com.vn/his/contact/35/khoa-rang-ham-mat",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department_contact-1620253329::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "terse_domain",
+    "question": "Da liễu",
+    "expected_terms": [
+      "da lieu"
+    ],
+    "index": 24,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 5463,
+    "answer": "Khoa Da Liễu của Bệnh viện A Thái Nguyên có địa chỉ tại tầng 3, 4 nhà C5. Đội ngũ nhân sự bao gồm 6 bác sĩ và 7 điều dưỡng, với các bác sĩ có nhiều kinh nghiệm trong thăm khám và điều trị bệnh da liễu. Khoa chuyên khám và điều trị các bệnh về ngoài da như chàm, viêm da dị ứng, viêm tiếp xúc, zona, herpes, vảy nến, và được trang bị các thiết bị hiện đại như máy laser và máy chụp phân tích da [Nguon 1], [Nguon 4], [Nguon 5]. \n\nNếu bạn cần liên hệ, có thể gọi đến số điện thoại 0826845222 hoặc 02083846112 [Nguon 2], [Nguon 4].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Khoa Da Liễu",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/13/khoa-da-lieu",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/13/khoa-da-lieu",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-4cd16fbfd6::chunk-001"
+      },
+      {
+        "source_id": "Nguon 2",
+        "title": "Khoa Da Liễu",
+        "locator": "https://benhvienathainguyen.com.vn/his/contact/13/khoa-da-lieu",
+        "source_url": "https://benhvienathainguyen.com.vn/his/contact/13/khoa-da-lieu",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department_contact-de94c369f5::chunk-001"
+      },
+      {
+        "source_id": "Nguon 4",
+        "title": "Khoa Da Liễu",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/13/khoa-da-lieu",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/13/khoa-da-lieu",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-4cd16fbfd6::chunk-002"
+      },
+      {
+        "source_id": "Nguon 5",
+        "title": "Khoa Da Liễu",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/13/khoa-da-lieu",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/13/khoa-da-lieu",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-4cd16fbfd6::chunk-003"
+      }
+    ]
+  },
+  {
+    "category": "terse_domain",
+    "question": "Mắt",
+    "expected_terms": [
+      "khoa mat"
+    ],
+    "index": 25,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 2279,
+    "answer": "Khoa Mắt của Bệnh viện A Thái Nguyên có thông tin liên hệ như sau: điện thoại (0208) 3846112 [Nguon 1]. Khoa Mắt được trang bị hiện đại với phòng mổ chuyên khoa mắt và các thiết bị tiên tiến [Nguon 2].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Khoa Mắt",
+        "locator": "https://benhvienathainguyen.com.vn/his/contact/12/khoa-mat",
+        "source_url": "https://benhvienathainguyen.com.vn/his/contact/12/khoa-mat",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department_contact-cb5a22c154::chunk-001"
+      },
+      {
+        "source_id": "Nguon 2",
+        "title": "Khoa Mắt",
+        "locator": "https://benhvienathainguyen.com.vn/his/department/12/khoa-mat",
+        "source_url": "https://benhvienathainguyen.com.vn/his/department/12/khoa-mat",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-department-06cb8e9af0::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "service",
+    "question": "Dịch vụ tiêm chủng có những thông tin gì?",
+    "expected_terms": [
+      "tiem"
+    ],
+    "index": 26,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 9326,
+    "answer": "Dịch vụ tiêm chủng tại Bệnh viện A Thái Nguyên bao gồm các thông tin sau:\n\n1. **Tại sao cần tiêm chủng**: Sử dụng vắc xin là một trong những phương pháp hiệu quả nhất để phòng tránh và giảm nhẹ bệnh tật [Nguon 1].\n\n2. **Quy trình tiêm chủng**:\n   - Đặt lịch qua điện thoại 0916.325.115 và/hoặc đăng ký tại quầy.\n   - Thực hiện khám sàng lọc trước tiêm chủng tại Khoa Khám bệnh.\n   - Tiêm chủng tại Khu vực tiêm chủng.\n   - Theo dõi sau tiêm chủng 30 phút.\n   - Nhận các hồ sơ liên quan [Nguon 3].\n\n3. **Giá dịch vụ**: Giá dịch vụ bao gồm phí khám sàng lọc trước tiêm chủng và giá vắc xin. Bảng giá có thể thay đổi mà không báo trước [Nguon 3].\n\n4. **Một số loại vắc xin và giá**:\n   - Influvac: 250.000 VNĐ\n   - ImmunoHbs: 1.950.000 VNĐ\n   - Vắc xin uốn ván hấp thụ: 65.000 VNĐ\n   - Hexaxim: 920.000 VNĐ\n   - MMR II: 225.000 VNĐ\n   - Rotarix: 795.000 VNĐ\n   - Varivax: 753.700 VNĐ\n   - Gardasil: 1.478.210 VNĐ\n   - Synflorix: 880.000 VNĐ [Nguon 2].\n\nNếu cần thêm thông tin chi tiết, vui lòng liên hệ Bộ phận Chăm sóc khách hàng qua số điện thoại 0916.325.115 [Nguon 3].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Dịch Vụ Tiêm Chủng",
+        "locator": "https://benhvienathainguyen.com.vn/vaccines",
+        "source_url": "https://benhvienathainguyen.com.vn/vaccines",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-service_page-eceb5f60da::chunk-001"
+      },
+      {
+        "source_id": "Nguon 2",
+        "title": "Dịch Vụ Tiêm Chủng",
+        "locator": "https://benhvienathainguyen.com.vn/vaccines",
+        "source_url": "https://benhvienathainguyen.com.vn/vaccines",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-service_page-eceb5f60da::chunk-004"
+      },
+      {
+        "source_id": "Nguon 3",
+        "title": "Dịch Vụ Tiêm Chủng",
+        "locator": "https://benhvienathainguyen.com.vn/vaccines",
+        "source_url": "https://benhvienathainguyen.com.vn/vaccines",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-service_page-eceb5f60da::chunk-005"
+      }
+    ]
+  },
+  {
+    "category": "service",
+    "question": "Đặt tiêm vaccine ở đâu?",
+    "expected_terms": [
+      "tiem"
+    ],
+    "index": 27,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 3909,
+    "answer": "Bạn có thể đặt tiêm vaccine tại Bệnh viện A Thái Nguyên. Quy trình tiêm chủng bao gồm:\n\n1. Đặt lịch qua điện thoại 0916.325.115 và/hoặc đăng ký tại quầy.\n2. Thực hiện khám sàng lọc trước tiêm chủng tại Khoa Khám bệnh.\n3. Tiêm chủng tại Khu vực tiêm chủng.\n4. Theo dõi sau tiêm chủng 30 phút.\n5. Nhận các hồ sơ liên quan [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Đặt Tiêm",
+        "locator": "https://benhvienathainguyen.com.vn/vaccines/book/21055",
+        "source_url": "https://benhvienathainguyen.com.vn/vaccines/book/21055",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-service_page-2af7e06444::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "service",
+    "question": "Điều trị theo yêu cầu là gì?",
+    "expected_terms": [
+      "yeu cau"
+    ],
+    "index": 28,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 2486,
+    "answer": "Điều trị theo yêu cầu là dịch vụ chăm sóc y tế đa dạng mà Bệnh viện A Thái Nguyên cung cấp, nhằm đáp ứng toàn diện nhu cầu của bệnh nhân và khách hàng. Dịch vụ này bao gồm phòng nội trú tiện nghi và dịch vụ khám chữa bệnh tại nhà, giúp bệnh nhân tiết kiệm thời gian và bảo vệ sức khỏe hiệu quả [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Điều Trị Theo Yêu Cầu",
+        "locator": "https://benhvienathainguyen.com.vn/page/14/dieu-tri-theo-yeu-cau",
+        "source_url": "https://benhvienathainguyen.com.vn/page/14/dieu-tri-theo-yeu-cau",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-page-393d31b7e5::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "service",
+    "question": "Có thông tin về Gardasil không?",
+    "expected_terms": [
+      "gardasil"
+    ],
+    "index": 29,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 13,
+    "answer": "Thông tin về Gardasil: giá 1.478.210 VNĐ, kháng nguyên HPV, liên hệ 0916325115 [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Đặt Tiêm",
+        "locator": "https://benhvienathainguyen.com.vn/vaccines/book/21138",
+        "source_url": "https://benhvienathainguyen.com.vn/vaccines/book/21138",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-service_page-0f9a7f9eb6::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "service",
+    "question": "Rotarix có trong cơ sở tri thức không?",
+    "expected_terms": [
+      "rotarix"
+    ],
+    "index": 30,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 11,
+    "answer": "Thông tin về Rotarix 1.5ml: giá 795.000 VNĐ, kháng nguyên Rota, liên hệ 0916325115 [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Đặt Tiêm",
+        "locator": "https://benhvienathainguyen.com.vn/vaccines/book/21091",
+        "source_url": "https://benhvienathainguyen.com.vn/vaccines/book/21091",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-service_page-4e1fb545c1::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "service",
+    "question": "Vaxigrip tetra là vaccine gì?",
+    "expected_terms": [
+      "vaxigrip"
+    ],
+    "index": 31,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 8,
+    "answer": "VAXIGRIP 7,5mcg-0.25ml là vắc-xin kháng nguyên Cúm, sản xuất bởi Sanofi Pasteur S.A - Pháp [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Đặt Tiêm",
+        "locator": "https://benhvienathainguyen.com.vn/vaccines/book/21136",
+        "source_url": "https://benhvienathainguyen.com.vn/vaccines/book/21136",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-service_page-8c1743b168::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "pricing",
+    "question": "Giá khám bệnh",
+    "expected_terms": [
+      "50.600"
+    ],
+    "index": 32,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 8,
+    "answer": "Giá khám bệnh tại Bệnh viện A là 50.600 VNĐ [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Bảng Giá Viện Phí",
+        "locator": "https://benhvienathainguyen.com.vn/page/11/bang-gia-vien-phi",
+        "source_url": "https://benhvienathainguyen.com.vn/page/11/bang-gia-vien-phi",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-page-4741cd2f7e::chunk-002"
+      }
+    ]
+  },
+  {
+    "category": "pricing",
+    "question": "Giá hội chẩn ca bệnh khó",
+    "expected_terms": [
+      "200.000"
+    ],
+    "index": 33,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 7,
+    "answer": "Giá hội chẩn để xác định ca bệnh khó tại Bệnh viện A là 200.000 VNĐ [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Bảng Giá Viện Phí",
+        "locator": "https://benhvienathainguyen.com.vn/page/11/bang-gia-vien-phi",
+        "source_url": "https://benhvienathainguyen.com.vn/page/11/bang-gia-vien-phi",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-page-4741cd2f7e::chunk-007"
+      }
+    ]
+  },
+  {
+    "category": "pricing",
+    "question": "Giá siêu âm tuyến giáp",
+    "expected_terms": [
+      "58.600"
+    ],
+    "index": 34,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 3546,
+    "answer": "Giá dịch vụ \"Siêu âm tuyến giáp\" là 58.600 VNĐ [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Siêu âm tuyến giáp",
+        "locator": "D:\\Khách\\ICTU\\Lê Văn Biên\\data\\knowledge_base\\bang_gia\\1.PL3.1.BVA.pdf | trang 3",
+        "source_url": null,
+        "origin_path": "D:\\Khách\\ICTU\\Lê Văn Biên\\data\\knowledge_base\\bang_gia\\1.PL3.1.BVA.pdf",
+        "record_type": "pricing_pdf_service",
+        "chunk_id": "pricing-service-1-pl3-1-bva-page-003-table-01-row-009::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "pricing",
+    "question": "Siêu âm tim thai qua đường âm đạo giá bao nhiêu?",
+    "expected_terms": [
+      "195.600"
+    ],
+    "index": 35,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 3522,
+    "answer": "Giá dịch vụ \"Siêu âm tim thai qua đường âm đạo\" là 195.600 VNĐ [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Siêu âm tim thai qua đường âm đạo",
+        "locator": "D:\\Khách\\ICTU\\Lê Văn Biên\\data\\knowledge_base\\bang_gia\\1.PL3.1.BVA.pdf | trang 3",
+        "source_url": null,
+        "origin_path": "D:\\Khách\\ICTU\\Lê Văn Biên\\data\\knowledge_base\\bang_gia\\1.PL3.1.BVA.pdf",
+        "record_type": "pricing_pdf_service",
+        "chunk_id": "pricing-service-1-pl3-1-bva-page-003-table-01-row-012::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "pricing",
+    "question": "Giá siêu âm tiền liệt tuyến qua trực tràng",
+    "expected_terms": [
+      "195.600"
+    ],
+    "index": 36,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 3619,
+    "answer": "Giá dịch vụ \"Siêu âm tiền liệt tuyến qua trực tràng\" là 195.600 VNĐ [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Siêu âm tiền liệt tuyến qua trực tràng",
+        "locator": "D:\\Khách\\ICTU\\Lê Văn Biên\\data\\knowledge_base\\bang_gia\\1.PL3.1.BVA.pdf | trang 3",
+        "source_url": null,
+        "origin_path": "D:\\Khách\\ICTU\\Lê Văn Biên\\data\\knowledge_base\\bang_gia\\1.PL3.1.BVA.pdf",
+        "record_type": "pricing_pdf_service",
+        "chunk_id": "pricing-service-1-pl3-1-bva-page-003-table-01-row-014::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "pricing",
+    "question": "Chụp OCT bán phần sau nhãn cầu giá bao nhiêu?",
+    "expected_terms": [
+      "222.300"
+    ],
+    "index": 37,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 6945,
+    "answer": "Giá dịch vụ \"Chụp OCT bán phần sau nhãn cầu\" là 222.300 VNĐ [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Chụp OCT bán phần sau nhãn cầu",
+        "locator": "D:\\Khách\\ICTU\\Lê Văn Biên\\data\\knowledge_base\\bang_gia\\1.PL3.1.BVA.pdf | trang 18",
+        "source_url": null,
+        "origin_path": "D:\\Khách\\ICTU\\Lê Văn Biên\\data\\knowledge_base\\bang_gia\\1.PL3.1.BVA.pdf",
+        "record_type": "pricing_pdf_service",
+        "chunk_id": "pricing-service-1-pl3-1-bva-page-018-table-01-row-010::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "pricing",
+    "question": "Chụp X-quang răng cận chóp Periapical giá?",
+    "expected_terms": [
+      "16.100"
+    ],
+    "index": 38,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 9170,
+    "answer": "Trong cơ sở tri thức hiện có, dịch vụ \"Chụp X-quang răng cận chóp\n(Periapical)\" có các mức giá sau: \"Chụp X-quang răng cận chóp\n(Periapical)\" là 16.100 VNĐ [Nguon 1]; \"Chụp X-quang răng cận chóp\n(Periapical) [số hóa]\" là 23.700 VNĐ [Nguon 2].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Chụp X-quang răng cận chóp\n(Periapical)",
+        "locator": "D:\\Khách\\ICTU\\Lê Văn Biên\\data\\knowledge_base\\bang_gia\\1.PL3.1.BVA.pdf | trang 18",
+        "source_url": null,
+        "origin_path": "D:\\Khách\\ICTU\\Lê Văn Biên\\data\\knowledge_base\\bang_gia\\1.PL3.1.BVA.pdf",
+        "record_type": "pricing_pdf_service",
+        "chunk_id": "pricing-service-1-pl3-1-bva-page-018-table-01-row-005::chunk-001"
+      },
+      {
+        "source_id": "Nguon 2",
+        "title": "Chụp X-quang răng cận chóp\n(Periapical) [số hóa]",
+        "locator": "D:\\Khách\\ICTU\\Lê Văn Biên\\data\\knowledge_base\\bang_gia\\1.PL3.1.BVA.pdf | trang 28",
+        "source_url": null,
+        "origin_path": "D:\\Khách\\ICTU\\Lê Văn Biên\\data\\knowledge_base\\bang_gia\\1.PL3.1.BVA.pdf",
+        "record_type": "pricing_pdf_service",
+        "chunk_id": "pricing-service-1-pl3-1-bva-page-028-table-01-row-012::chunk-001"
+      }
+    ]
+  },
+  {
+    "category": "pricing",
+    "question": "Ngày giường điều trị ban ngày Bệnh viện A bao nhiêu?",
+    "expected_terms": [
+      "ban ngay"
+    ],
+    "index": 39,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 11,
+    "answer": "Ngày giường điều trị ban ngày tại Bệnh viện A được tính bằng 0,3 lần giá ngày giường của khoa và loại phòng tương ứng [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "PDF table page 1",
+        "locator": "https://benhvienathainguyen.com.vn/page/11/bang-gia-vien-phi",
+        "source_url": "https://benhvienathainguyen.com.vn/page/11/bang-gia-vien-phi",
+        "origin_path": null,
+        "record_type": "table",
+        "chunk_id": "page-4741cd2f7e-pdf-table-3-1-1"
+      }
+    ]
+  },
+  {
+    "category": "pricing",
+    "question": "Ngày giường hồi sức cấp cứu ở Bệnh viện A",
+    "expected_terms": [
+      "hoi suc"
+    ],
+    "index": 40,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 9,
+    "answer": "Ngày giường bệnh hồi sức cấp cứu tại Bệnh viện A là 558.600 VNĐ [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "PDF table page 1",
+        "locator": "https://benhvienathainguyen.com.vn/page/11/bang-gia-vien-phi",
+        "source_url": "https://benhvienathainguyen.com.vn/page/11/bang-gia-vien-phi",
+        "origin_path": null,
+        "record_type": "table",
+        "chunk_id": "page-4741cd2f7e-pdf-table-3-1-1"
+      }
+    ]
+  },
+  {
+    "category": "bhyt",
+    "question": "Hướng dẫn tích hợp thẻ bảo hiểm y tế trên VNeID gồm bước nào?",
+    "expected_terms": [
+      "vneid"
+    ],
+    "index": 41,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 5181,
+    "answer": "Hướng dẫn tích hợp thẻ bảo hiểm y tế trên VNeID gồm các bước sau:\n\n1. Đăng nhập ứng dụng VNeID, tại màn hình chính.\n2. Nhấn vào mục \"Vi giấy tờ\" của ứng dụng VNeID.\n3. Nhấn \"Tạo mới yêu cầu\".\n4. Chọn loại thông tin → Thẻ bảo hiểm y tế.\n5. Chọn đơn vị cấp thẻ BHYT.\n6. Nhập mã số thẻ BHYT và xác nhận yêu cầu [Nguon 1], [Nguon 2], [Nguon 5].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Hướng Dẫn Tích Hợp Thẻ Bảo Hiểm Y Tế",
+        "locator": "https://benhvienathainguyen.com.vn/article/1500/huong-dan-tich-hop-the-bao-hiem-y-te",
+        "source_url": "https://benhvienathainguyen.com.vn/article/1500/huong-dan-tich-hop-the-bao-hiem-y-te",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-article-7c7e5c30fc::chunk-002"
+      },
+      {
+        "source_id": "Nguon 2",
+        "title": "Hướng Dẫn Tích Hợp Thẻ Bảo Hiểm Y Tế",
+        "locator": "https://benhvienathainguyen.com.vn/article/1500/huong-dan-tich-hop-the-bao-hiem-y-te",
+        "source_url": "https://benhvienathainguyen.com.vn/article/1500/huong-dan-tich-hop-the-bao-hiem-y-te",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-article-7c7e5c30fc::chunk-003"
+      },
+      {
+        "source_id": "Nguon 5",
+        "title": "Hướng Dẫn Tích Hợp Thẻ Bảo Hiểm Y Tế",
+        "locator": "https://benhvienathainguyen.com.vn/article/1500/huong-dan-tich-hop-the-bao-hiem-y-te",
+        "source_url": "https://benhvienathainguyen.com.vn/article/1500/huong-dan-tich-hop-the-bao-hiem-y-te",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-article-7c7e5c30fc::chunk-006"
+      }
+    ]
+  },
+  {
+    "category": "bhyt",
+    "question": "Điều kiện cần để tích hợp thẻ BHYT là gì?",
+    "expected_terms": [
+      "dinh danh"
+    ],
+    "index": 42,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 2983,
+    "answer": "Điều kiện cần để tích hợp thẻ bảo hiểm y tế là công dân đã có tài khoản định danh điện tử [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Hướng Dẫn Tích Hợp Thẻ Bảo Hiểm Y Tế",
+        "locator": "https://benhvienathainguyen.com.vn/article/1500/huong-dan-tich-hop-the-bao-hiem-y-te",
+        "source_url": "https://benhvienathainguyen.com.vn/article/1500/huong-dan-tich-hop-the-bao-hiem-y-te",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-article-7c7e5c30fc::chunk-002"
+      }
+    ]
+  },
+  {
+    "category": "bhyt",
+    "question": "Người trên 80 tuổi có liên quan gì tới đăng ký KCB ban đầu tại Bệnh viện A?",
+    "expected_terms": [
+      "80"
+    ],
+    "index": 43,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 10460,
+    "answer": "Người trên 80 tuổi có liên quan đến việc đăng ký khám chữa bệnh ban đầu tại Bệnh viện A Thái Nguyên, vì họ thuộc đối tượng được quản lý và bảo vệ sức khỏe tại cơ sở này. Cụ thể, người từ 80 tuổi trở lên được ghi nhận trong danh sách các đối tượng được chăm sóc sức khỏe đặc biệt [Nguon 1], [Nguon 2].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Hướng Dẫn Cơ Sở Khám Bệnh, Chữa Bệnh Đủ Điều Kiện Khám Bệnh, Chữa Bệnh Bhyt Năm 2024",
+        "locator": "https://benhvienathainguyen.com.vn/article/1080/huong-dan-co-so-kham-benh-chua-benh-du-dieu-kien-kham-benh-chua-benh-bhyt-nam-2024",
+        "source_url": "https://benhvienathainguyen.com.vn/article/1080/huong-dan-co-so-kham-benh-chua-benh-du-dieu-kien-kham-benh-chua-benh-bhyt-nam-2024",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-article-ab495d6101::chunk-014"
+      },
+      {
+        "source_id": "Nguon 2",
+        "title": "Hướng Dẫn Cơ Sở Khám Bệnh, Chữa Bệnh Đủ Điều Kiện Khám Bệnh, Chữa Bệnh Bhyt Năm 2024",
+        "locator": "https://benhvienathainguyen.com.vn/article/1080/huong-dan-co-so-kham-benh-chua-benh-du-dieu-kien-kham-benh-chua-benh-bhyt-nam-2024",
+        "source_url": "https://benhvienathainguyen.com.vn/article/1080/huong-dan-co-so-kham-benh-chua-benh-du-dieu-kien-kham-benh-chua-benh-bhyt-nam-2024",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-article-ab495d6101::chunk-015"
+      }
+    ]
+  },
+  {
+    "category": "bhyt",
+    "question": "Trẻ em dưới 6 tuổi có được đăng ký KCB ban đầu tại Bệnh viện A không?",
+    "expected_terms": [
+      "6 tuoi"
+    ],
+    "index": 44,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 3277,
+    "answer": "Trẻ em dưới 6 tuổi có được đăng ký khám chữa bệnh ban đầu tại Bệnh viện A Thái Nguyên [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Hướng Dẫn Cơ Sở Khám Bệnh, Chữa Bệnh Đủ Điều Kiện Khám Bệnh, Chữa Bệnh Bhyt Năm 2024",
+        "locator": "https://benhvienathainguyen.com.vn/article/1080/huong-dan-co-so-kham-benh-chua-benh-du-dieu-kien-kham-benh-chua-benh-bhyt-nam-2024",
+        "source_url": "https://benhvienathainguyen.com.vn/article/1080/huong-dan-co-so-kham-benh-chua-benh-du-dieu-kien-kham-benh-chua-benh-bhyt-nam-2024",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-article-ab495d6101::chunk-014"
+      }
+    ]
+  },
+  {
+    "category": "bhyt",
+    "question": "Người có HIV/AIDS điều trị ngoại trú tại Bệnh viện A được nhắc ở đâu?",
+    "expected_terms": "hiv",
+    "index": 45,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 3347,
+    "answer": "Cơ sở tri thức hiện có địa chỉ của Bệnh viện A Thái Nguyên trên đường Quang Trung, thành phố Thái Nguyên. Nguồn đang ghi theo hai cách: \"Đường Quang Trung, P Thịnh Đán, TP Thái Nguyên\" và \"Đường Quang Trung, P Quyết Thắng, T Thái Nguyên\" [Nguon 1][Nguon 2].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Liên Hệ",
+        "locator": "https://benhvienathainguyen.com.vn/contact",
+        "source_url": "https://benhvienathainguyen.com.vn/contact",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-contact-95131c567b::chunk-001"
+      },
+      {
+        "source_id": "Nguon 2",
+        "title": "Giới Thiệu Chung",
+        "locator": "https://benhvienathainguyen.com.vn/page/2/gioi-thieu-chung",
+        "source_url": "https://benhvienathainguyen.com.vn/page/2/gioi-thieu-chung",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-page-96f1d1cb1a::chunk-021"
+      }
+    ]
+  },
+  {
+    "category": "bhyt",
+    "question": "Các trường hợp cấp cứu BHYT được xác định như thế nào?",
+    "expected_terms": "cap cuu",
+    "index": 46,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 3685,
+    "answer": "Các trường hợp cấp cứu bảo hiểm y tế (BHYT) được xác định theo quy định tại Thông tư 40/2015/TT-BYT. Cụ thể, người tham gia BHYT có thể được cấp cứu tại bất kỳ cơ sở khám bệnh, chữa bệnh nào mà không cần giấy chuyển tuyến. Điều này bao gồm cả các trường hợp cấp cứu khẩn cấp, nơi người bệnh có thể được điều trị ngay lập tức mà không cần phải tuân theo quy trình chuyển tuyến thông thường [Nguon 1], [Nguon 2].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Hướng Dẫn Cơ Sở Khám Bệnh, Chữa Bệnh Đủ Điều Kiện Khám Bệnh, Chữa Bệnh Bhyt Năm 2024",
+        "locator": "https://benhvienathainguyen.com.vn/article/1080/huong-dan-co-so-kham-benh-chua-benh-du-dieu-kien-kham-benh-chua-benh-bhyt-nam-2024",
+        "source_url": "https://benhvienathainguyen.com.vn/article/1080/huong-dan-co-so-kham-benh-chua-benh-du-dieu-kien-kham-benh-chua-benh-bhyt-nam-2024",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-article-ab495d6101::chunk-018"
+      },
+      {
+        "source_id": "Nguon 2",
+        "title": "Hướng Dẫn Cơ Sở Khám Bệnh, Chữa Bệnh Đủ Điều Kiện Khám Bệnh, Chữa Bệnh Bhyt Năm 2024",
+        "locator": "https://benhvienathainguyen.com.vn/article/1080/huong-dan-co-so-kham-benh-chua-benh-du-dieu-kien-kham-benh-chua-benh-bhyt-nam-2024",
+        "source_url": "https://benhvienathainguyen.com.vn/article/1080/huong-dan-co-so-kham-benh-chua-benh-du-dieu-kien-kham-benh-chua-benh-bhyt-nam-2024",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-article-ab495d6101::chunk-024"
+      }
+    ]
+  },
+  {
+    "category": "bhyt",
+    "question": "Giấy hẹn khám lại có giá trị sử dụng mấy lần?",
+    "expected_terms": [
+      "mot lan"
+    ],
+    "index": 47,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 2020,
+    "answer": "Giấy hẹn khám lại chỉ có giá trị sử dụng một lần kể từ thời điểm cấp giấy hẹn khám lại này [Nguon 1].",
+    "sources": [
+      {
+        "source_id": "Nguon 1",
+        "title": "Hướng Dẫn Cơ Sở Khám Bệnh, Chữa Bệnh Đủ Điều Kiện Khám Bệnh, Chữa Bệnh Bhyt Năm 2024",
+        "locator": "https://benhvienathainguyen.com.vn/article/1080/huong-dan-co-so-kham-benh-chua-benh-du-dieu-kien-kham-benh-chua-benh-bhyt-nam-2024",
+        "source_url": "https://benhvienathainguyen.com.vn/article/1080/huong-dan-co-so-kham-benh-chua-benh-du-dieu-kien-kham-benh-chua-benh-bhyt-nam-2024",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-article-ab495d6101::chunk-058"
+      }
+    ]
+  },
+  {
+    "category": "bhyt",
+    "question": "Mẫu giấy chuyển tuyến khám bệnh BHYT có nội dung gì?",
+    "expected_terms": "giay chuyen tuyen",
+    "index": 48,
+    "passed": true,
+    "has_answer": true,
+    "has_sources": true,
+    "has_expected_terms": true,
+    "elapsed_ms": 4492,
+    "answer": "Mẫu giấy chuyển tuyến khám bệnh bảo hiểm y tế có các nội dung chính như sau:\n\n1. Thông tin cơ sở khám bệnh, chữa bệnh.\n2. Thông tin người bệnh: họ và tên, năm sinh, địa chỉ, dân tộc, quốc tịch, nghề nghiệp, nơi làm việc.\n3. Số thẻ bảo hiểm y tế và thời hạn sử dụng của thẻ bảo hiểm y tế.\n4. Số hiệu giấy chuyển tuyến và các thông tin liên quan khác.\n\nMẫu giấy này được ban hành kèm theo Nghị định số 75/2023/NĐ-CP ngày 19/10/2023 của Chính phủ [Nguon 2].",
+    "sources": [
+      {
+        "source_id": "Nguon 2",
+        "title": "Hướng Dẫn Cơ Sở Khám Bệnh, Chữa Bệnh Đủ Điều Kiện Khám Bệnh, Chữa Bệnh Bhyt Năm 2024",
+        "locator": "https://benhvienathainguyen.com.vn/article/1080/huong-dan-co-so-kham-benh-chua-benh-du-dieu-kien-kham-benh-chua-benh-bhyt-nam-2024",
+        "source_url": "https://benhvienathainguyen.com.vn/article/1080/huong-dan-co-so-kham-benh-chua-benh-du-dieu-kien-kham-benh-chua-benh-bhyt-nam-2024",
+        "origin_path": null,
+        "record_type": "web_document",
+        "chunk_id": "web-article-ab495d6101::chunk-059"
+      }
+    ]
+  }
+]

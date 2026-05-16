@@ -62,7 +62,26 @@ class ChatViewModelTest {
         assertEquals(
             listOf(
                 ChatRequestCall("Khoa Nhi Bệnh viện A có số điện thoại nào?", null),
-                ChatRequestCall("Email thì sao?", "Khoa Nhi Bệnh viện A có số điện thoại nào?"),
+                ChatRequestCall("Email thì sao?", "Khoa Nhi Bệnh viện A"),
+            ),
+            repository.calls,
+        )
+    }
+
+    @Test
+    fun departmentRoleFollowUpUsesDepartmentAnchorAsContextHint() = runTest(dispatcher) {
+        val repository = FakeChatRepository()
+        val viewModel = ChatViewModel(repository)
+
+        viewModel.sendQuestion("Khoa Nhi có bao nhiêu giường bệnh?")
+        advanceUntilIdle()
+        viewModel.sendQuestion("Trưởng khoa là ai?")
+        advanceUntilIdle()
+
+        assertEquals(
+            listOf(
+                ChatRequestCall("Khoa Nhi có bao nhiêu giường bệnh?", null),
+                ChatRequestCall("Trưởng khoa là ai?", "Khoa Nhi"),
             ),
             repository.calls,
         )
